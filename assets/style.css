@@ -1,0 +1,53 @@
+header {
+	background: rgb(255,204,0);
+	height: 150px;
+}
+
+#footer {
+    background: #333;
+}
+
+#footer p {
+    margin-top: 20px;
+    color: white;
+}
+
+img.race-car {
+    height: 130px;
+    margin: 10px;
+}
+
+.profiles {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.profile-link {
+	display: inline-block;
+	padding: 0;
+	margin: 20px;
+	background: rgb(255,204,0);
+	border: 2px solid black;
+	border-radius: 5px;
+	text-align: center;
+	width: 220px;
+	height: 110px;
+	line-height: 110px;
+}
+
+.profile-link a {
+	color: black;
+	font-weight: bold;
+}
+
+table {
+	width: 100%;
+}
+
+dd {
+	width: 50%;
+}
+
+input[type='checkbox'] {
+	margin-right: 10px;
+}
