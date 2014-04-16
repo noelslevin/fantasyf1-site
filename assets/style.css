@@ -1,6 +1,5 @@
 header {
 	background: rgb(255,204,0);
-	height: 150px;
 }
 
 #footer {
@@ -12,9 +11,11 @@ header {
     color: white;
 }
 
-img.race-car {
-    height: 130px;
+#race-car {
+    background: url(race-car.svg) no-repeat left;
+    background-size: contain;
     margin: 10px;
+    height: 120px;
 }
 
 .profiles {
@@ -50,4 +51,10 @@ dd {
 
 input[type='checkbox'] {
 	margin-right: 10px;
+}
+
+@media screen and (max-width: 40em) {
+    #race-car {
+        height: 65px;   
+    }
 }
