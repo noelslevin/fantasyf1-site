@@ -49,12 +49,46 @@ dd {
 	width: 50%;
 }
 
+.center {
+    text-align: center;
+}
+
 input[type='checkbox'] {
 	margin-right: 10px;
+}
+
+object {
+    display: block;
+    margin: 0 auto;
+}
+
+object.trophy {
+    height: 100px;
+    width: 100px;
 }
 
 @media screen and (max-width: 40em) {
     #race-car {
         height: 65px;   
+    }
+    object {
+        margin: 0;
+        display: inline;
+    }
+    .trophies {
+        display: flex;
+        padding: 0;
+    }
+    div.trophy {
+        line-height: 100px;
+    }
+    .trophies h2, .trophies p {
+        display: inline;   
+    }
+    .trophies p {
+        text-transform: lowercase;
+    }
+    .trophies p:before {
+        content: " ";   
     }
 }

@@ -4,8 +4,22 @@ if (strpos($filename,'/') !== false) {
 	define("USERPROFILE", $root[1]);
 	if (ctype_alnum(constant("USERPROFILE"))) { // Checks to see if username string is alphanumeric
 		include '../private/connection.php';
-		echo "<h1>User Profile: ".constant("USERPROFILE")."</h1>";
+		echo "<h1>".ucfirst(constant("USERPROFILE"))."</h1>"; ?>
 
+            <div class="small-12 medium-4 column trophies">
+                <div><object class=trophy type="image/svg+xml" data="/assets/trophy-gold.svg"></object></div>
+                <?php include 'includes/user-wins.php'; ?>
+            </div>
+            <div class="small-12 medium-4 column trophies">
+                <div><object class=trophy type="image/svg+xml" data="/assets/trophy-silver.svg"></object></div>
+                <?php include 'includes/user-podiums.php'; ?>
+            </div>
+            <div class="small-12 medium-4 column trophies">
+                <div><object class=trophy type="image/svg+xml" data="/assets/trophy-bronze.svg"></object></div>
+                <?php include 'includes/user-point-scores.php'; ?>
+            </div>
+        
+        <?php
 		// Season records
 		echo "<h2>Results by season</h2>";
 		echo "<table>\n";
