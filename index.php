@@ -14,7 +14,7 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
     <script src="/assets/modernizr.js"></script>
   </head>
   <body>
-	<div class=contain-to-grid fixed>
+	<div class=contain-to-grid>
 		<nav class=top-bar data-topbar>
 			<ul class=title-area>
 				<li class=name></li>
