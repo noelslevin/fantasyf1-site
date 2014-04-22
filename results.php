@@ -17,10 +17,13 @@ function listDirectory() {
 			}
 			else {
 				$value = substr($value, 0, -5);
+                $country = str_replace("-grand-prix","",$value);
+                $pos = strpos($country, "-") + 1;
+                $country = substr($country, $pos);
 				$displayvalue = str_replace("-", " ", $value);
 				$displayvalue = ucwords($displayvalue);
 				$displayvalue = substr($displayvalue, 4);
-				$output .= "<li class=profile-link><a href=".$home.$page.$value."/>".$displayvalue."</a></li>\n";
+				$output .= "<li class=\"profile-link ".$country."\"><a href=".$home.$page.$value."/>&nbsp;</a></li>\n";
 				$number++;
 			}
 		}

@@ -68,6 +68,90 @@ object.trophy {
     width: 100px;
 }
 
+.abu-dhabi {
+    background: url(abu-dhabi-flag.svg);
+}
+
+.australian {
+    background: url(australian-flag.svg);  
+}
+
+.bahrain {
+    background: url(bahrain-flag.svg);
+}
+
+.belgian {
+    background: url(belgian-flag.svg);
+}
+    
+.brazilian {
+    background: url(brazilian-flag.svg);
+}
+
+.british {
+    background: url(british-flag.svg);   
+}
+
+.canadian {
+    background: url(canadian-flag.svg);
+}
+
+.chinese {
+    background: url(chinese-flag.svg);
+}
+
+.european {
+    background: url(european-flag.svg);
+}
+
+.german {
+    background: url(german-flag.svg);
+}
+
+.hungarian {
+    background: url(hungarian-flag.svg);
+}
+
+.indian {
+    background: url(indian-flag.svg);
+}
+ 
+.italian {
+    background: url(italian-flag.svg);
+}
+
+.japanese {
+    background: url(japanese-flag.svg);
+}
+
+.korean {
+    background: url(korean-flag.svg);
+}
+
+.malaysian {
+    background: url(malaysian-flag.svg);
+}
+
+.monaco {
+    background: url(monaco-flag.svg);
+}
+.singapore {
+    background: url(singapore-flag.svg);
+}
+
+.spanish {
+    background: url(spanish-flag.svg);
+}
+
+.united-states {
+    background: url(united-states-flag.svg);
+}
+
+.profile-link {
+    background-size: cover;   
+    background-position: center;
+}
+
 @media screen and (max-width: 40em) {
     #race-car {
         height: 65px;   
