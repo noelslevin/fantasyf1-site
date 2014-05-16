@@ -152,6 +152,93 @@ object.trophy {
     background-position: center;
 }
 
+table.dataTable  {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #757575;
+}
+
+table.dataTable thead, table.dataTable tfoot, .dataTables_paginate a {
+    text-align: left;
+    background-color: #57c6ff;
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+    background: #FFF;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+   background: #F9F9F9;
+}
+
+table.dataTable td, table.dataTable th {
+    padding: 8px;
+}
+
+table.dataTable tr {
+    border-bottom: 1px solid #757575;
+}
+
+table.dataTable td:last-child {
+    text-align: center;   
+}
+
+.dataTables_filter label {
+    visibility: hidden;
+}
+
+.dataTables_filter label input {
+    visibility: visible;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.dataTables_paginate {
+    text-align: center;
+}
+
+.dataTables_paginate a {
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    margin: 5px;
+    color: #000;
+}
+
+table.dataTable thead, .dataTables_paginate a {
+    cursor: pointer;
+}
+
+table.dataTable thead .sorting {
+  background: url("sort_both.png") no-repeat center right;
+}
+
+table.dataTable thead .sorting_asc {
+  background: url("sort_asc.png") no-repeat center right;
+}
+
+table.dataTable thead .sorting_desc {
+  background: url("sort_desc.png") no-repeat center right;
+}
+
+table.dataTable thead .sorting_asc_disabled {
+  background: url("sort_asc_disabled.png") no-repeat center right;
+}
+
+table.dataTable thead .sorting_desc_disabled {
+  background: url("sort_desc_disabled.png") no-repeat center right;
+}
+
+@media screen and (max-width: 50em) {
+    #ff1picks td:nth-child(3), #ff1picks th:nth-child(3) {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 40em) {
     #race-car {
         height: 65px;   
@@ -176,4 +263,10 @@ object.trophy {
     .trophies p:before {
         content: " ";   
     }
+}
+
+@media screen and (max-width: 32em) {
+    #ff1picks td:nth-child(5), #ff1picks th:nth-child(5) {
+        display: none;
+    }   
 }

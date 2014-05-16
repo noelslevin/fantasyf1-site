@@ -1,5 +1,9 @@
 <?php
 $home = "/";
+$page = NULL;
+if ($_SERVER['PHP_SELF'] == "/account/check-picks.php") {
+    $page = "check-picks";
+}
 ?>
 <!doctype html>
 <html class="no-js" lang=en>
@@ -25,7 +29,8 @@ $home = "/";
 			<ul class=left>
 				<li><a href=<?php echo $home; ?>>Main site</a></li>
 				<li><a href=<?php echo $home; ?>account/>Your profile</a></li>
-				<li><a href=<?php echo $home; ?>account/picks.php>Picks</a></li>
+				<li><a href=<?php echo $home; ?>account/picks.php>Make picks</a></li>
+                <li><a href=<?php echo $home; ?>account/check-picks.php>Check picks</a></li>
 				<li><a href=<?php echo $home; ?>account/logout.php>Log Out</a></li>
 			</ul>
 		</section>

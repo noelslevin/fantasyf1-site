@@ -7,12 +7,21 @@
 		</div>
 	</div>
 </div>
-
 <script src="/assets/jquery.js"></script>
+<?php
+if ($page == "check-picks") {
+        echo "<script src=\"/assets/jquery.dataTables.min.js\"></script>\n";
+}
+?>
 <script src="/assets/scripts.js"></script>
 <script src="/assets/foundation.min.js"></script>
 <script>
   $(document).foundation();
 </script>
+<?php 
+    if ($page == "check-picks") {
+        echo "<script> $(document).ready(function() { table = $('#ff1picks').DataTable({ \"info\": false, \"pageLength\": 25, \"lengthChange\": false, pagingType: \"full\" }); } ); </script>\n";
+    }
+?>
 </body>
 </html>
