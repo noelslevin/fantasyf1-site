@@ -39,8 +39,7 @@ if ($_SERVER['PHP_SELF'] == "/account/check-picks.php") {
 
 <header id=top-header>
 	<div class=row>
-		<div class="small-12 columns">
-			<img class=race-car src=<?php echo $home; ?>assets/race-car.svg height=140 alt="Race Car" />
+		<div class="small-12 columns" id="race-car">
 		</div>
 	</div>
 </header>
