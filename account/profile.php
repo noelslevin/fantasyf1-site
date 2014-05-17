@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 $error = NULL;
 $output = NULL;
 
