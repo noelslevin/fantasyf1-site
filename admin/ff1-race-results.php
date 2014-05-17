@@ -61,7 +61,7 @@ else {
 	$query->execute();
 	$row = $query->fetchAll(PDO::FETCH_ASSOC);
 	if ($query->RowCount() > 0) {
-		echo "<form name=ff1results action=\"".$PHP_SELF."\" method=post>\n";
+		echo "<form name=ff1results action=\"".$_SERVER['PHP_SELF']."\" method=post>\n";
 		echo "<select name=raceid>\n";
 		foreach ($row as $data) {
 			echo "<option value=".$data['races_id'].">".substr($data['race_date'], 0, 4)." ".$data['grand_prix_name']."</option>\n";
