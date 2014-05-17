@@ -270,3 +270,11 @@ table.dataTable thead .sorting_desc_disabled {
         display: none;
     }   
 }
+
+@media screen and (min-width: 45em) {
+	.picks {
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+		column-count: 2;
+	}
+}

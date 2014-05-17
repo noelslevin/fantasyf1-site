@@ -17,6 +17,7 @@ $totalrows = count($row);
 //echo "There are ".$totalrows." rows.\n";
 if ($sql->rowCount() > 0) {
 	$output .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=post>\n";
+	$output .= "<div class=\"picks\">";
 	$number = 0;
 	foreach ($row as $result) {
 		$number++;
@@ -29,6 +30,7 @@ if ($sql->rowCount() > 0) {
 		$output .= "<input type=checkbox name=driverpicks[] id=pick".$number." onclick=UpdateCost() value=".$raceentryid." />".$driver.", ".$team." (".$cost.")\n<br>\n";
 		$output .= "<input type=hidden id=driverpick".$number." value=".$cost.">\n\n";
 	}
+	$output .= "</div>";
 	$output .= "<input type=text readonly=readonly id=totalcost value=\"0.0\">\n";
 	$output .= "<input type=hidden name=raceid id=raceid value=".$raceid.">\n";
 	$output .= "<input type=submit name=submitpicks id=submitpicks value=\"Submit Picks\" />\n";
