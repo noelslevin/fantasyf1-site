@@ -263,6 +263,19 @@ table.dataTable thead .sorting_desc_disabled {
     .trophies p:before {
         content: " ";   
     }
+    
+    .top-bar-section ul {
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    .top-bar-section li {
+        width: 25%;
+    }
+    .top-bar-section ul li > a {
+        padding-left: 0;   
+    }
 }
 
 @media screen and (max-width: 32em) {
