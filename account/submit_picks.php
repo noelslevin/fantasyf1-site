@@ -55,7 +55,7 @@ if (isset($_POST['submitpicks'])) {
 					}
 				}
 				if ($numrows == $i && $numrows == $N) {
-					echo "<p>".$N." picks were entered in the database.</p";
+					echo "<p>".$N." picks were entered in the database.</p>";
 					$sql = $dbh->prepare("DELETE FROM fantasypicks WHERE fantasyuserstoseasons_id = :user AND races_id = :race AND timepicked != :time");
 					$sql->execute(array(':user'=>$fantasyuserstoseasonsid, ':race'=>$raceid, ':time'=>$now));
 					$row = $sql->rowCount();
