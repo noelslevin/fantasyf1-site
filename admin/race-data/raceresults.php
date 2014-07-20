@@ -32,7 +32,7 @@ if (isset($_POST['resultspage']) or (isset($race))) {
 	
 	// Select all drivers from the race_id specified
 
-	$query = "SELECT * FROM `view_ff1allraceresults` WHERE id = '$raceid' AND ISNULL(race_position)";
+	$query = "SELECT * FROM `view_ff1allraceresults` WHERE id = '$raceid' AND ISNULL(race_position) ORDER BY fantasy_value DESC";
 	$result = mysql_query ($query);
 	if (mysql_num_rows($result) > 0) {
 		echo "<form action =\"".$_SERVER['PHP_SELF']."?page=raceresults\" method=\"post\">\n\n";
