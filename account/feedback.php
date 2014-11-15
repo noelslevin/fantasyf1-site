@@ -26,7 +26,7 @@ if (isset($_SESSION['user_id'])) {
     }
     else {
       $output .= "<div data-alert class=\"alert-box alert radius\">\n";
-      $output .= "<p>Something went wrong. Unable to save data.</p>\n";
+      $output .= "<p>Something went wrong. Unable to save data. This may be because the information you submitted is the same as the data already stored.</p>\n";
       $output .= "</div>\n";
     }
   }
@@ -84,7 +84,7 @@ if (isset($_SESSION['user_id'])) {
            <input type="radio" name="playnextyear" value="Yes" required <?php if (htmlspecialchars_decode($nextyear) == "Yes") { echo "checked"; } ?>>Yes<br/>
            <input type="radio" name="playnextyear" value="No" <?php if (htmlspecialchars_decode($nextyear) == "No") { echo "checked"; } ?>>No<br/>
            <input type="radio" name="playnextyear" value="Undecided" <?php if (htmlspecialchars_decode($nextyear) == "Undecided") { echo "checked"; } ?>/>I'm not sure<br/>
-           <input type="submit" name="feedback-submit" value="Submit"></input>
+           <input type="submit" name="feedback-submit" value="Submit">
          </form>
       </div>
     </div>
