@@ -74,6 +74,9 @@ if (isset($_SESSION['user_id'])) {
          <?php if ($output != NULL) { echo $output; } ?>
          
          <p>As it's the end of the season, I'd like your feedback about the site, what works well, what doesn't work so well, and any extra features you'd like to see.</p>
+         <div data-alert class="alert-box info radius">
+         <p>When you have submitted data, it will display in the fields below whenever you access this page, so you can add to, edit or remove information from your submission by editing the content of the boxes.</p>
+         </div>
          <p>Please fill in the form below, to help me improve FantasyF1 for next season!</p>
          <form name="feedback-form" action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
            <p class="no-gap">Is there anything on the site that doesn't work properly?</p>
