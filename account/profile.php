@@ -21,7 +21,11 @@ if (isset($_SESSION['user_id'])) {
 	echo "<div class=row>\n";
 	echo "<div class=\"small-12 columns\">\n";
 	echo "<h1>User profile</h1>";
-	
+
+    echo "<div data-alert class=\"alert-box info radius\">\n";
+    echo "<p style=\"margin-bottom: 0;\">I need your feedback! Please take two minutes to fill in the <a href=\"feedback.php\" style=\"color: #000;\">feedback form</a>. Thanks!</p>\n";
+  echo "</div>\n";
+  
 	if (isset($_POST['agreetoterms'])) {
 		$terms = 0;
 		$terms = $_POST['terms'];
