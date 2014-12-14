@@ -28,7 +28,7 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
 					<li><a href=<?php echo $home; ?>profiles/>Profiles</a></li>
 					<li><a href=<?php echo $home; ?>results/>Results</a></li>
 					<li><a href=<?php echo $home; ?>standings/>Standings</a></li>
-					<!--<li><a href=<?php echo $home; ?>statistics/>Statistics</a></li>-->
+					<li><a href=<?php echo $home; ?>statistics/>Statistics</a></li>
 					<li><a href=<?php echo $home; ?>account/>Account</a></li>
 				</ul>
 			</section>
