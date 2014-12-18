@@ -8,6 +8,7 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
     <meta charset=utf-8>
     <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
     <title>FantasyF1 | Welcome</title>
+     <link rel="apple-touch-icon" href="/icon.png">
     <link rel="stylesheet" href="/assets/foundation.min.css" />
 	<link rel="stylesheet" href="/assets/normalize.css" />
 	<link rel="stylesheet" href="/assets/style.css" />
