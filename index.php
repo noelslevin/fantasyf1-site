@@ -39,7 +39,7 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
 		</div>
 	</header>
 	
-	<div class=row>
+	<div class="row">
 		<?php if ($page) {
 			if (substr($page, -1) == "/") {
 				$filename = substr($page, 0, -1); // Removes trailing slash if it's there
