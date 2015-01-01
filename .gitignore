@@ -3,7 +3,7 @@
 ################
 
 .sass-cache/
-node_nodules/
+node_modules/
 
 #################
 ## Eclipse
