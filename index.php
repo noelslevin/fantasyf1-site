@@ -8,11 +8,8 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
     <meta charset=utf-8>
     <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
     <title>FantasyF1 | Welcome</title>
-     <link rel="apple-touch-icon" href="/icon.png">
-    <link rel="stylesheet" href="/assets/foundation.min.css" />
-	<link rel="stylesheet" href="/assets/normalize.css" />
-	<link rel="stylesheet" href="/assets/style.css" />
-    <script src="/assets/modernizr.js"></script>
+     <link rel="apple-touch-icon" href="/assets/img/icon.png">
+    <link rel="stylesheet" href="/assets/css/main.min.css" />
   </head>
   <body>
 	<div class=contain-to-grid>
@@ -82,9 +79,7 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
 		</div>
 	</div>
     
-    <script src="/assets/jquery.js"></script>
-	<script src="/assets/scripts.js"></script>
-    <script src="/assets/foundation.min.js"></script>
+	<script src="/assets/js/main.min.js"></script>
     <script>
       $(document).foundation();
     </script>

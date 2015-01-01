@@ -7,15 +7,15 @@ if (strpos($filename,'/') !== false) {
 		echo "<h1>".ucfirst(constant("USERPROFILE"))."</h1>"; ?>
 
             <div class="small-12 medium-4 column trophies">
-                <div><object class=trophy type="image/svg+xml" data="/assets/trophy-gold.svg"></object></div>
+                <div><object class=trophy type="image/svg+xml" data="/assets/svg/trophies/trophy-gold.svg"></object></div>
                 <?php include 'includes/user-wins.php'; ?>
             </div>
             <div class="small-12 medium-4 column trophies">
-                <div><object class=trophy type="image/svg+xml" data="/assets/trophy-silver.svg"></object></div>
+                <div><object class=trophy type="image/svg+xml" data="/assets/svg/trophies/trophy-silver.svg"></object></div>
                 <?php include 'includes/user-podiums.php'; ?>
             </div>
             <div class="small-12 medium-4 column trophies">
-                <div><object class=trophy type="image/svg+xml" data="/assets/trophy-bronze.svg"></object></div>
+                <div><object class=trophy type="image/svg+xml" data="/assets/svg/trophies/trophy-bronze.svg"></object></div>
                 <?php include 'includes/user-point-scores.php'; ?>
             </div>
         
