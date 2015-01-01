@@ -1,1 +1,0 @@
-$(window).bind("load",function(){var e=$("#footer");var t=e.position();var n=$(window).height();n=n-t.top;n=n-e.height();if(n>0){e.css({"margin-top":n+"px"})}})
