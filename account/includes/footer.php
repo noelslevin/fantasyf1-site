@@ -7,14 +7,12 @@
 		</div>
 	</div>
 </div>
-<script src="/assets/jquery.js"></script>
+<script src="/assets/js/main.min.js"></script>
 <?php
 if ($page == "check-picks") {
         echo "<script src=\"/assets/jquery.dataTables.min.js\"></script>\n";
 }
 ?>
-<script src="/assets/scripts.js"></script>
-<script src="/assets/foundation.min.js"></script>
 <script>
   $(document).foundation();
 </script>

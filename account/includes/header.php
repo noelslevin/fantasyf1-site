@@ -11,11 +11,9 @@ if ($_SERVER['PHP_SELF'] == "/account/check-picks.php") {
 <meta charset=UTF-8>
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Your Account | FantasyF1 | Noelinho.org</title>
-<link rel="apple-touch-icon" href="/icon.png">
+<link rel="apple-touch-icon" href="/assets/img/icon.png">
 <link rel="stylesheet" href="/assets/foundation.min.css" />
-<link rel="stylesheet" href="/assets/normalize.css" />
-<link rel="stylesheet" href="/assets/style.css" />
-<script src="/assets/modernizr.js"></script>
+<link rel="stylesheet" href="/assets/css/main.min.css" />
 <meta name=description content="The (not quite) world-famous Noelinho.org FantasyF1 game">
 </head>
 <body>
