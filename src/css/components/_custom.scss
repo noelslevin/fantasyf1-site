@@ -1,0 +1,200 @@
+header {
+	background: rgb(255,204,0);
+}
+
+#footer {
+    background: #333;
+}
+
+#footer p {
+    margin-top: 20px;
+    color: white;
+}
+
+#race-car {
+    background: url(/assets/svg/race-car.svg) no-repeat left;
+    background-size: contain;
+    margin: 10px;
+    height: 120px;
+}
+
+.profiles {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.profile-link {
+	display: inline-block;
+	padding: 0;
+	margin: 10px;
+	background: rgb(255,204,0);
+	border: 2px solid black;
+	border-radius: 5px;
+	text-align: center;
+	height: 110px;
+	line-height: 110px;
+}
+
+.profile-link a {
+	color: black;
+	font-weight: bold;
+    display: inline-block;
+    min-width: 220px;
+}
+
+table {
+	width: 100%;
+}
+
+dd {
+	width: 50%;
+}
+
+.center {
+    text-align: center;
+}
+
+input[type='checkbox'] {
+	margin-right: 10px;
+}
+
+object {
+    display: block;
+    margin: 0 auto;
+}
+
+object.trophy {
+    height: 100px;
+    width: 100px;
+}
+
+.abu-dhabi {
+    background: url(/assets/svg/flags/abu-dhabi-flag.svg);
+}
+
+.australian {
+    background: url(/assets/svg/flags/australian-flag.svg);  
+}
+
+.bahrain {
+    background: url(/assets/svg/flags/bahrain-flag.svg);
+}
+
+.belgian {
+    background: url(/assets/svg/flags/belgian-flag.svg);
+}
+    
+.brazilian {
+    background: url(/assets/svg/flags/brazilian-flag.svg);
+}
+
+.british {
+    background: url(/assets/svg/flags/british-flag.svg);   
+}
+
+.canadian {
+    background: url(/assets/svg/flags/canadian-flag.svg);
+}
+
+.chinese {
+    background: url(/assets/svg/flags/chinese-flag.svg);
+}
+
+.european {
+    background: url(/assets/svg/flags/european-flag.svg);
+}
+
+.german {
+    background: url(/assets/svg/flags/german-flag.svg);
+}
+
+.hungarian {
+    background: url(/assets/svg/flags/hungarian-flag.svg);
+}
+
+.indian {
+    background: url(/assets/svg/flags/indian-flag.svg);
+}
+ 
+.italian {
+    background: url(/assets/svg/flags/italian-flag.svg);
+}
+
+.japanese {
+    background: url(/assets/svg/flags/japanese-flag.svg);
+}
+
+.korean {
+    background: url(/assets/svg/flags/korean-flag.svg);
+}
+
+.malaysian {
+    background: url(/assets/svg/flags/malaysian-flag.svg);
+}
+
+.monaco {
+    background: url(/assets/svg/flags/monaco-flag.svg);
+}
+.singapore {
+    background: url(/assets/svg/flags/singapore-flag.svg);
+}
+
+.spanish {
+    background: url(/assets/svg/flags/spanish-flag.svg);
+}
+
+.united-states {
+    background: url(/assets/svg/flags/united-states-flag.svg);
+}
+
+.profile-link {
+    background-size: cover;   
+    background-position: center;
+}
+
+@media screen and (max-width: 40em) {
+    #race-car {
+        height: 65px;   
+    }
+    object {
+        margin: 0;
+        display: inline;
+    }
+    .trophies {
+        display: flex;
+        padding: 0;
+    }
+    div.trophy {
+        line-height: 100px;
+    }
+    .trophies h2, .trophies p {
+        display: inline;   
+    }
+    .trophies p {
+        text-transform: lowercase;
+    }
+    .trophies p:before {
+        content: " ";   
+    }
+    
+    .top-bar-section ul {
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    .top-bar-section li {
+        width: 25%;
+    }
+    .top-bar-section ul li > a {
+        padding-left: 0;   
+    }
+}
+
+@media screen and (min-width: 45em) {
+	.picks {
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+		column-count: 2;
+	}
+}

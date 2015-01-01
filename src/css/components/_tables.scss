@@ -1,0 +1,228 @@
+// Foundation by ZURB
+// foundation.zurb.com
+// Licensed under MIT Open Source
+
+@import "global";
+
+//
+// @name _tables.scss
+// @dependencies _global.scss
+//
+
+//
+// @variables
+//
+
+$include-html-table-classes: $include-html-classes !default;
+
+// These control the background color for the table and even rows
+$table-bg: $white !default;
+$table-even-row-bg: $snow !default;
+
+// These control the table cell border style
+$table-border-style: solid !default;
+$table-border-size: 1px !default;
+$table-border-color: $gainsboro !default;
+
+// These control the table head styles
+$table-head-bg: $white-smoke !default;
+$table-head-font-size: rem-calc(14) !default;
+$table-head-font-color: $jet !default;
+$table-head-font-weight: $font-weight-bold !default;
+$table-head-padding: rem-calc(8 10 10) !default;
+
+// These control the table foot styles
+$table-foot-bg: $table-head-bg !default;
+$table-foot-font-size: $table-head-font-size !default;
+$table-foot-font-color: $table-head-font-color !default;
+$table-foot-font-weight: $table-head-font-weight !default;
+$table-foot-padding: $table-head-padding !default;
+
+// These control the caption
+$table-caption-bg: transparent !default;
+$table-caption-font-color: $table-head-font-color !default;
+$table-caption-font-size: rem-calc(16) !default;
+$table-caption-font-weight: bold !default;
+
+// These control the row padding and font styles
+$table-row-padding: rem-calc(9 10) !default;
+$table-row-font-size: rem-calc(14) !default;
+$table-row-font-color: $jet !default;
+$table-line-height: rem-calc(18) !default;
+
+// These are for controlling the layout, display and margin of tables
+$table-layout: auto !default;
+$table-display: table-cell !default;
+$table-margin-bottom: rem-calc(20) !default;
+
+
+//
+// @mixins
+//
+
+@mixin table {
+  background: $table-bg;
+  margin-bottom: $table-margin-bottom;
+  border: $table-border-style $table-border-size $table-border-color;
+  table-layout: $table-layout;
+
+  caption {
+    background: $table-caption-bg;
+    color: $table-caption-font-color;
+    font: {
+      size: $table-caption-font-size;
+      weight: $table-caption-font-weight;
+    }
+  }
+
+  thead {
+    background: $table-head-bg;
+
+    tr {
+      th,
+      td {
+        padding: $table-head-padding;
+        font-size: $table-head-font-size;
+        font-weight: $table-head-font-weight;
+        color: $table-head-font-color;
+      }
+    }
+  }
+
+  tfoot {
+    background: $table-foot-bg;
+
+    tr {
+      th,
+      td {
+        padding: $table-foot-padding;
+        font-size: $table-foot-font-size;
+        font-weight: $table-foot-font-weight;
+        color: $table-foot-font-color;
+      }
+    }
+  }
+
+  tr {
+    th,
+    td {
+      padding: $table-row-padding;
+      font-size: $table-row-font-size;
+      color: $table-row-font-color;
+      text-align: $default-float;
+    }
+
+    &.even,
+    &.alt,
+    &:nth-of-type(even) { background: $table-even-row-bg; }
+  }
+
+  thead tr th,
+  tfoot tr th,
+  tfoot tr td,
+  tbody tr th,
+  tbody tr td,
+  tr td { display: $table-display; line-height: $table-line-height; }
+}
+
+
+@include exports("table") {
+  @if $include-html-table-classes {
+    table {
+      @include table;
+    }
+  }
+}
+
+table.dataTable  {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #757575;
+}
+
+table.dataTable thead, table.dataTable tfoot, .dataTables_paginate a {
+    text-align: left;
+    background-color: #57c6ff;
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+    background: #FFF;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+   background: #F9F9F9;
+}
+
+table.dataTable td, table.dataTable th {
+    padding: 8px;
+}
+
+table.dataTable tr {
+    border-bottom: 1px solid #757575;
+}
+
+table.dataTable td:last-child {
+    text-align: center;   
+}
+
+.dataTables_filter label {
+    visibility: hidden;
+}
+
+.dataTables_filter label input {
+    visibility: visible;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.dataTables_paginate {
+    text-align: center;
+}
+
+.dataTables_paginate a {
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    margin: 5px;
+    color: #000;
+}
+
+table.dataTable thead, .dataTables_paginate a {
+    cursor: pointer;
+}
+
+table.dataTable thead .sorting {
+  background: url(/assets/img/sort_both.png) no-repeat center right;
+}
+
+table.dataTable thead .sorting_asc {
+  background: url(/assets/img/sort_asc.png) no-repeat center right;
+}
+
+table.dataTable thead .sorting_desc {
+  background: url(/assets/img/sort_desc.png) no-repeat center right;
+}
+
+table.dataTable thead .sorting_asc_disabled {
+  background: url(/assets/img/sort_asc_disabled.png) no-repeat center right;
+}
+
+table.dataTable thead .sorting_desc_disabled {
+  background: url(/assets/img/sort_desc_disabled.png) no-repeat center right;
+}
+
+@media screen and (max-width: 50em) {
+    #ff1picks td:nth-child(3), #ff1picks th:nth-child(3) {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 32em) {
+    #ff1picks td:nth-child(5), #ff1picks th:nth-child(5) {
+        display: none;
+    }   
+}
