@@ -17,7 +17,7 @@ $include-html-table-classes: $include-html-classes !default;
 
 // These control the background color for the table and even rows
 $table-bg: $primary-color !default;
-$table-even-row-bg: #E8D20C !default;
+$table-even-row-bg: scale-color($primary-color, $lightness: +30%) !default;
 
 // These control the table cell border style
 $table-border-style: solid !default;
