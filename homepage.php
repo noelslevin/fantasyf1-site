@@ -1,4 +1,12 @@
 <div class="homepage">
+
+  <div class="small-12 medium-4 columns homepage-panel">
+    <a href="/about/">
+      <h2>Results</h2>
+      <p>Need to check out how you did in the recent races? Find everything you need here.</p>
+    </a>
+  </div>
+  
   <div class="small-12 medium-4 columns homepage-panel">
     <a href="/standings/">
       <h2>Standings</h2>
@@ -24,13 +32,6 @@
     <a href="/rules/">
     <h2>Rules</h2>
     <p>The boring (but important) bit. Contains information about picks, scoring and more. Oh, and complaints. But you don't have any, right?</p>
-    </a>
-  </div>
-  
-  <div class="small-12 medium-4 columns homepage-panel">
-    <a href="/about/">
-      <h2>About</h2>
-      <p>Still not entirely sure what this site's all about? Hopefully all your questions will be answered here.</p>
     </a>
   </div>
 
