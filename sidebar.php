@@ -1,5 +1,5 @@
 <?php include '../private/connection.php'; ?>
-<h2><small>Formula One Standings</small></h2>
+<h3>Formula One Standings</h3>
 <dl class=tabs data-tab>
 	<dd class="active"><a href="#panel2-1">Driver</a></dd>
 	<dd><a href="#panel2-2">Team</a></dd>
@@ -54,7 +54,7 @@
 	</div>
 </div>
 
-<h2><small>FantasyF1 Standings</small></h2>
+<h3>FantasyF1 Standings</h3>
 <dl class=tabs data-tab>
 	<dd class="active"><a href="#panel2-3">Individual</a></dd>
 	<dd><a href="#panel2-4">Team</a></dd>

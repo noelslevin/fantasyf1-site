@@ -1,14 +1,15 @@
 header {
-	background: rgb(255,204,0);
+	background: $primary-color;
 }
 
 #footer {
-    background: #333;
+    background: $oil;
 }
 
-#footer p {
+footer p {
     margin-top: 20px;
     color: white;
+    text-align: center;
 }
 
 #race-car {
@@ -27,7 +28,7 @@ header {
 	display: inline-block;
 	padding: 0;
 	margin: 10px;
-	background: rgb(255,204,0);
+	background: $primary-color;
 	border: 2px solid black;
 	border-radius: 5px;
 	text-align: center;
@@ -40,10 +41,6 @@ header {
 	font-weight: bold;
     display: inline-block;
     min-width: 220px;
-}
-
-table {
-	width: 100%;
 }
 
 dd {
@@ -176,19 +173,6 @@ object.trophy {
     .trophies p:before {
         content: " ";   
     }
-    
-    .top-bar-section ul {
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-    }
-
-    .top-bar-section li {
-        width: 25%;
-    }
-    .top-bar-section ul li > a {
-        padding-left: 0;   
-    }
 }
 
 @media screen and (min-width: 45em) {
@@ -197,4 +181,87 @@ object.trophy {
 		-webkit-column-count: 2;
 		column-count: 2;
 	}
+}
+
+.homepage {
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.homepage-panel {
+  width: 100%;
+  border: 1px solid #666;
+  padding: 0;
+  margin: 5px;
+  background: $primary-color;
+  border-radius: 5px;
+}
+
+.homepage-panel h2, .homepage-panel p {
+  margin: 0;
+}
+
+.homepage-panel p {
+  padding: 10px;
+}
+
+.homepage-panel h2 {
+  border-bottom: 1px solid #333;
+  background: #333;
+  color: #FFF;
+  padding: 0 10px;
+}
+
+.homepage-panel a {
+  color: inherit;
+}
+
+@media screen and (min-width: 30em) {
+  .homepage-panel {
+    margin: 5px;
+    width: calc((100% / 2) - 10px);
+  }  
+}
+
+@media screen and (min-width: 45em) {
+  .homepage-panel {
+    width: calc((100% / 3) - 10px);
+  }  
+}
+
+body {
+  background: $secondary-color;
+}
+
+/* Top bar section */
+
+.top-bar-section ul {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.top-bar-section li {
+  width: 25%;
+}
+
+.top-bar-section ul li > a {
+  padding-left: 0;
+}
+
+@media screen and (min-width: 40.063em) {
+  .top-bar section ul {
+    text-align: left;
+    flex-wrap: nowrap;
+  }
+  .top-bar-section li {
+    width: auto;
+  }
+}
+
+header {
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
 }
