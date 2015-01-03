@@ -52,6 +52,9 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
 			$rootfile = $root[0].'.php'; // Returns the part of the string before a trailing slash, adds file extension
 			echo '<div class="small-12 large-7 columns" id=mainwidth>';
 			if (file_exists($rootfile)) {
+                if ($rootfile == '404.php') {
+                  header("HTTP/1.1 404 Not Found");
+                }
 				include $rootfile;
 				}
 			else {
