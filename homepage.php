@@ -1,7 +1,7 @@
 <div class="homepage">
 
   <div class="small-12 medium-4 columns homepage-panel">
-    <a href="/about/">
+    <a href="/results/">
       <h2>Results</h2>
       <p>Need to check out how you did in the recent races? Find everything you need here.</p>
     </a>
