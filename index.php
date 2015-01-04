@@ -35,7 +35,9 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
 	
 	<header id=top-header>
 		<div class=row>
-			<div class="small-12 columns" id=race-car></div>
+			<div class="small-12 columns">
+              <div id="race-car"></div>
+          </div>
 		</div>
 	</header>
 	
