@@ -65,7 +65,7 @@ else {
 	<p>Do you want to know a bit more about everyone who plays FantasyF1? You've come to the right place. Look at the profiles here to check out who's hot, who's not, and get a little insight into who their favourite drivers to pick are!</p>
 	<div class="profiles">
 	<?php 
-    $sql = "SELECT * FROM profile_stats ORDER BY username ASC";
+    $sql = "SELECT username, COUNT(*) as races, COUNT( IF( fantasy_race_position = 1, 1, NULL ) ) as wins, SUM(fantasy_championship_points) as points FROM `view_ff1results` GROUP BY username ORDER BY username ASC";
     $query = $dbh->prepare($sql);
     $query->execute();
     if ($query->rowCount() > 0) {

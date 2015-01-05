@@ -33,7 +33,6 @@ a {
 <a href=ff1-general/index.php?page=ff1teamstoseasons>FF1 Teams to Seasons</a>
 <a href=ff1-general/index.php?page=ff1userstoseasons>FF1 Users to Seasons</a>
 <a href=ff1-general/index.php?page=feedback>User feedback</a>
-  <a href=ff1-general/index.php?page=profiles>Update profile stats</a>
 </div>
 
 <div class=block>
