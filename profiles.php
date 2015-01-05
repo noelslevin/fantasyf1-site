@@ -1,9 +1,10 @@
 <?php 
 
+include '../private/connection.php';
+
 if (strpos($filename,'/') !== false) {
 	define("USERPROFILE", $root[1]);
 	if (ctype_alnum(constant("USERPROFILE"))) { // Checks to see if username string is alphanumeric
-		include '../private/connection.php';
 		echo "<h1>".ucfirst(constant("USERPROFILE"))."</h1>"; ?>
 
             <div class="small-12 medium-4 column trophies">
@@ -52,7 +53,7 @@ if (strpos($filename,'/') !== false) {
 
 	}
 	else {
-		header("HTTP/1.0 404 Not Found");
+		header("HTTP/1.1 404 Not Found");
 		include '404.php';
 	}
 			
@@ -62,16 +63,26 @@ else {
 
 	echo "<h1>Profiles</h1>"; ?>
 	<p>Do you want to know a bit more about everyone who plays FantasyF1? You've come to the right place. Look at the profiles here to check out who's hot, who's not, and get a little insight into who their favourite drivers to pick are!</p>
-	<ul class=profiles>
+	<div class="profiles">
 	<?php 
-	$contents = scandir($page);
+    $sql = "SELECT * FROM profile_stats ORDER BY username ASC";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    if ($query->rowCount() > 0) {
+      $result = $query->fetchAll(PDO::FETCH_OBJ);
+      foreach ($result as $row) {
+        echo "<div class=homepage-panel><h3><a href=".$home.$page.$row->username."/>".$row->username."</h3></a><p>Races: ".$row->races."<br>Wins: ".$row->wins."<br>Points: ".$row->points."</p></div>\n";
+      }
+      
+    }
+	/*$contents = scandir($page);
 	foreach($contents as $key => $value) {
 		if ($value != "index.php" && $value !="." && $value !="..") {
 			$value = substr($value, 0, -4);
-			echo "<li class=profile-link><a href=".$home.$page.$value."/>".$value."</a></li>\n";
+			echo "<div class=homepage-panel><h3><a href=".$home.$page.$value."/>".$value."</h3></a><p>Races: <br>Wins: <br>Points: </p></div>\n";
 		}
-	}
-	echo "</ul>\n";
+	}*/
+	echo "</div>\n";
 }
 
 ?>

@@ -10209,6 +10209,13 @@ footer p {
 }
 
 .profiles {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   margin: 0 auto;
   text-align: center;
 }
@@ -10409,15 +10416,16 @@ object.trophy {
   border-radius: 5px;
 }
 
-.homepage-panel h2, .homepage-panel p {
+.homepage-panel h2, .homepage-panel h3, .homepage-panel p {
   margin: 0;
+  text-align: left;
 }
 
 .homepage-panel p {
   padding: 10px;
 }
 
-.homepage-panel h2 {
+.homepage-panel h2, .homepage-panel h3 {
   border-bottom: 1px solid #333;
   background: #333;
   color: #FFF;
@@ -10435,7 +10443,7 @@ object.trophy {
   }
 }
 @media screen and (min-width: 45em) {
-  .homepage-panel {
+  .homepage-panel.max-3 {
     width: calc((100% / 3) - 10px);
   }
 }
