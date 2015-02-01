@@ -1,0 +1,7 @@
+<h2>Change email address</h2>
+<p>You can now update your email address, but be careful as the email address you supply is used for login, delivery of password reset requests and race results.</p>
+
+<form name=changepassword action="<?php echo $_SERVER['PHP_SELF'];?>" method=post>
+  <input type=email name=email value="<?php echo $email; ?>" required>
+  <input type=submit name=emailupdate value="Update email address">
+</form>

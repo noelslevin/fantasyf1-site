@@ -7,6 +7,11 @@ function changepassword() {
 	include('includes/changepassword.html');
 }
 
+function emailaddress() {
+  global $email;
+  include('includes/emailaddress.html');
+}
+
 function error() {
 	echo "<p>It has not been possible to change your password. Please see the information below.</p>";
 	global $error;
@@ -14,19 +19,48 @@ function error() {
 }
 
 if (isset($_SESSION['user_id'])) {
+    $id = $_SESSION['user_id'];
 	$title = "Your FantasyF1 Profile";
 	include('includes/header.php');
 	include '../../private/connection.php';
+  
+    $sql = "SELECT email_address FROM fantasyusers WHERE id = :userid";
+    $query = $dbh->prepare($sql);
+    $query->execute(array(':userid' => $id));
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    if ($query->rowCount() == 1) {
+      $email = $row['email_address'];
+    }
 	
 	echo "<div class=row>\n";
 	echo "<div class=\"small-12 columns\">\n";
 	echo "<h1>User profile</h1>";
-
     echo "<div data-alert class=\"alert-box info radius\">\n";
-    echo "<p style=\"margin-bottom: 0;\">I need your feedback! Please take two minutes to fill in the <a href=\"feedback.php\" style=\"color: #000;\">feedback form</a>. Thanks!</p>\n";
+    echo "<p style=\"margin-bottom: 0;\">I need your feedback! Please take two minutes to fill in the <a href=\"feedback.php\" \">feedback form</a>. Thanks!</p>\n";
   echo "</div>\n";
   
-	if (isset($_POST['agreetoterms'])) {
+    if (isset($_POST['emailupdate'])) {
+      $emailaddress = $_POST['email'];
+      if(!filter_var($emailaddress, FILTER_VALIDATE_EMAIL)) {
+        $error .= "<p>The email address you supplied is not valid. Your email address has not been updated.</p>";
+      }
+      else {
+        $sql = "UPDATE fantasyusers SET email_address =? WHERE id =?";
+        $query = $dbh->prepare($sql);
+        $query->execute(array($emailaddress,$id));
+        if ($query->rowCount() == 1) {
+          echo "<div data-alert class=\"alert-box success radius\">\n";
+          echo "<p>Your email address has been updated.</p>";
+        }
+        else {
+          echo "<div data-alert class=\"alert-box alert radius\">\n";
+          echo "<p>Your email address has not been updated.</p>";
+        }
+        echo "</div>\n";
+      } 
+    }
+  
+	else if (isset($_POST['agreetoterms'])) {
 		$terms = 0;
 		$terms = $_POST['terms'];
 		if ($terms == 1) {
@@ -62,7 +96,6 @@ if (isset($_SESSION['user_id'])) {
 		}
 		if ($error == NULL) {
 			$password = password_hash($_POST['newpassword1'], PASSWORD_DEFAULT);
-			$id = $_SESSION['user_id'];
 			$sql = "SELECT password FROM fantasyusers WHERE id = :userid";
 			$query = $dbh->prepare($sql);
 			$query->execute(array(':userid' => $id));
@@ -92,6 +125,7 @@ if (isset($_SESSION['user_id'])) {
 			}
 		}
 		else {
+            emailaddress();
 			changepassword();
 			error();
 		}
@@ -99,6 +133,7 @@ if (isset($_SESSION['user_id'])) {
 	include('includes/footer.php');
 	}
 	else {
+        emailaddress();
 		changepassword();
 		echo "</div>\n</div>\n";
 		include 'includes/footer.php';
