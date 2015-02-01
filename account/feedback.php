@@ -6,9 +6,9 @@ $output = NULL;
 $nextyear = NULL;
 $bugs = NULL;
 $features = NULL;
-$user = $_SESSION['user_id'];
 
 if (isset($_SESSION['user_id'])) {
+  $user = $_SESSION['user_id'];
   $title = "All FantasyF1 Picks";
   include('includes/header.php');
   include('../../private/connection.php');
