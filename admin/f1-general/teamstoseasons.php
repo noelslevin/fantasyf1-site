@@ -48,7 +48,7 @@ else {
 }
 echo "<select name=\"season\">\n";
 $year = 1950;
-$thisyear = date(Y);
+$thisyear = date('Y');
 while ($year <= $thisyear) {
 	echo "<option value\"".$year."\">".$year."</option>\n";
 	$year++;
