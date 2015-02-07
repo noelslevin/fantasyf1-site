@@ -47,11 +47,10 @@ else {
 	$message .= "<p>No teams found.</p>\n";
 }
 echo "<select name=\"season\">\n";
-$year = 1950;
-$thisyear = date('Y');
-while ($year <= $thisyear) {
+$year = date('Y');
+while ($year >= 1950) {
 	echo "<option value\"".$year."\">".$year."</option>\n";
-	$year++;
+	$year--;
 }
 	echo "</select><br/>";
 echo "<label for=\"team_name\">Team Name: </label><input type=\"text\" name=\"team_name\" value=\"\" /><br/>\n";
