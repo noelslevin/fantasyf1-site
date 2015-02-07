@@ -4,6 +4,7 @@ $output = NULL;
 $error = NULL;
 $driverid = NULL;
 $teamid = NULL;
+$date = date('Y');
 
 $output .="<h2>Drivers To Seasons</h2>";
 $output.="<p>Use this to assign drivers to teams in the database</p>";
@@ -59,7 +60,7 @@ else {
 	$output .= "<p>No drivers found.</p>\n";
 }
 // Select all teams from the database
-$query = "SELECT teamstoseasons.id, teamstoseasons.teamname, teamstoseasons.season FROM teamstoseasons WHERE teamstoseasons.season = '2014' ORDER BY teamstoseasons.teamname";
+$query = "SELECT teamstoseasons.id, teamstoseasons.teamname, teamstoseasons.season FROM teamstoseasons WHERE teamstoseasons.season = '$date' ORDER BY teamstoseasons.teamname";
 $result = mysql_query ($query);
 if (mysql_num_rows ($result) > 0) {
 	echo "<select name = \"team_id\">\n";
