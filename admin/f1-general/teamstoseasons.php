@@ -60,19 +60,3 @@ echo "</form>\n\n";
 echo $message;
 
 ?>
-
-<?php
-
-/*
-
-SELECT drivers.forename, drivers.surname, teamstoseasons.teamname, teamstoseasons.teams_id 
-FROM drivers, driverstoseasons, teams, teamstoseasons
-WHERE driverstoseasons.drivers_id = drivers.id
-AND driverstoseasons.teamstoseasons_id = teamstoseasons.id
-AND teamstoseasons.teams_id = teams.id
-AND teamstoseasons.season = 2011
-ORDER BY teams.id ASC
-
-*/
-
-?>
