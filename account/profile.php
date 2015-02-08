@@ -8,7 +8,7 @@ function changepassword() {
 }
 
 function emailaddress() {
-  global $email;
+  global $email, $preferences;
   include('includes/emailaddress.html');
 }
 
@@ -24,37 +24,41 @@ if (isset($_SESSION['user_id'])) {
 	include('includes/header.php');
 	include '../../private/connection.php';
   
-    $sql = "SELECT email_address FROM fantasyusers WHERE id = :userid";
+    $sql = "SELECT email_address, preferences FROM fantasyusers WHERE id = :userid";
     $query = $dbh->prepare($sql);
     $query->execute(array(':userid' => $id));
     $row = $query->fetch(PDO::FETCH_ASSOC);
     if ($query->rowCount() == 1) {
       $email = $row['email_address'];
+      $preferences = $row['preferences'];
     }
 	
 	echo "<div class=row>\n";
 	echo "<div class=\"small-12 columns\">\n";
 	echo "<h1>User profile</h1>";
-    echo "<div data-alert class=\"alert-box info radius\">\n";
-    echo "<p style=\"margin-bottom: 0;\">I need your feedback! Please take two minutes to fill in the <a href=\"feedback.php\" \">feedback form</a>. Thanks!</p>\n";
+    //echo "<div data-alert class=\"alert-box info radius\">\n";
+    //echo "<p style=\"margin-bottom: 0;\">I need your feedback! Please take two minutes to fill in the <a href=\"feedback.php\" \">feedback form</a>. Thanks!</p>\n";
+  echo "<div data-alert class=\"alert-box warning radius\">\n";
+  echo "<p style=\"margin-bottom: 0;\">Please make sure you have agreed to the site terms and expressed your preference for team and teammate on this page. This is very important to ensure you are registered to play FantasyF1 this season.</p>\n";
   echo "</div>\n";
   
     if (isset($_POST['emailupdate'])) {
+      $preferences = htmlspecialchars(strip_tags($_POST['preferences']));      
       $emailaddress = $_POST['email'];
       if(!filter_var($emailaddress, FILTER_VALIDATE_EMAIL)) {
         $error .= "<p>The email address you supplied is not valid. Your email address has not been updated.</p>";
       }
       else {
-        $sql = "UPDATE fantasyusers SET email_address =? WHERE id =?";
+        $sql = "UPDATE fantasyusers SET email_address =?, preferences=? WHERE id =?";
         $query = $dbh->prepare($sql);
-        $query->execute(array($emailaddress,$id));
+        $query->execute(array($emailaddress, $preferences, $id));
         if ($query->rowCount() == 1) {
           echo "<div data-alert class=\"alert-box success radius\">\n";
-          echo "<p>Your email address has been updated.</p>";
+          echo "<p>Your preferences have been updated.</p>";
         }
         else {
           echo "<div data-alert class=\"alert-box alert radius\">\n";
-          echo "<p>Your email address has not been updated.</p>";
+          echo "<p>Your preferences have not been updated. Did you update anything?</p>";
         }
         echo "</div>\n";
       } 

@@ -1,7 +1,10 @@
-<h2>Change email address</h2>
-<p>You can now update your email address, but be careful as the email address you supply is used for login, delivery of password reset requests and race results.</p>
+<h2>Your preferences</h2>
+<p>Use this form to update your email address and register your preferences for teammates and teams. The email address you supply is used for login, delivery of password reset requests and race results.</p>
 
 <form name=changepassword action="<?php echo $_SERVER['PHP_SELF'];?>" method=post>
   <input type=email name=email value="<?php echo $email; ?>" required>
-  <input type=submit name=emailupdate value="Update email address">
+  <p class="no-gap">Please state in the next box which FantasyF1 user you would most like to be in your team this year, and which F1 team you would like to be assigned to. Teams will be made up of two users. Where two users agree they want to be in the same team, their wish will be granted. Any remaining gaps will be assigned as decided by the site administrator. You can name your preferred teams in order – first priority goes to people who were in that team last year; after that, by position in last year's FantasyF1 championship.</p>
+  
+  <textarea name="preferences" class="feedback-text"><?php if (isset($preferences)) { echo htmlspecialchars_decode($preferences); } ?></textarea>
+  <input type=submit name=emailupdate value="Update preferences">
 </form>
