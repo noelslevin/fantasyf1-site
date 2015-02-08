@@ -74,7 +74,7 @@ else {
 	}
 	else {
 	echo "<h1>Registration</h1>\n";
-		echo "<p>Sorry, registration is currently closed.</p>";
+		echo "<p>Sorry, registration is currently closed. Once current users have had a chance to register for this season, it will open.</p>";
 	}
 }
 
