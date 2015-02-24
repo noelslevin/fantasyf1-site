@@ -12,14 +12,14 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
     <link rel="stylesheet" href="/assets/css/main.min.css" />
   </head>
   <body>
-	<div class=contain-to-grid>
-		<nav class=top-bar data-topbar>
-			<ul class=title-area>
-				<li class=name></li>
-				<li class="toggle-topbar menu-icon"><a href="">Menu</a></li>
+	<div class="contain-to-grid fixed">
+		<nav class="top-bar" data-topbar>
+			<ul class="title-area">
+				<li class="name"></li>
+				<li class="toggle-topbar menu-icon"><a href=""><span>Menu</span></a></li>
 			</ul>
-			<section class=top-bar-section>
-				<ul class=left>
+			<section class="top-bar-section">
+				<ul class="left">
 					<li><a href=<?php echo $home; ?>>Home</a></li>
 					<li><a href=<?php echo $home; ?>about/>About</a></li>
 					<li><a href=<?php echo $home; ?>rules/>Rules</a></li>

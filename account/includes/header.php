@@ -17,14 +17,14 @@ if ($_SERVER['PHP_SELF'] == "/account/check-picks.php") {
 </head>
 <body>
 
-<div class=contain-to-grid fixed>
-	<nav class=top-bar data-topbar>
-		<ul class=title-area>
-			<li class=name></li>
-			<li class="toggle-topbar menu-icon"><a href="">Menu</a></li>
+<div class="contain-to-grid fixed">
+	<nav class="top-bar" data-topbar>
+		<ul class="title-area">
+			<li class="name"></li>
+			<li class="toggle-topbar menu-icon"><a href=""><span>Menu</span></a></li>
 		</ul>
-		<section class=top-bar-section>
-			<ul class=left>
+		<section class="top-bar-section">
+			<ul class="left">
 				<li><a href=<?php echo $home; ?>>Main site</a></li>
 				<li><a href=<?php echo $home; ?>account/>Your profile</a></li>
 				<li><a href=<?php echo $home; ?>account/picks.php>Make picks</a></li>
