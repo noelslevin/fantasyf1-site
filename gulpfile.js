@@ -11,8 +11,7 @@ var gulp = require('gulp'),
     svgmin = require('gulp-svgmin');
 
 gulp.task('styles', function() {
-  return gulp.src('src/css/main.scss')
-    .pipe(sass({ "sourcemap=none": true, style: 'expanded' }))
+  return sass('src/css/main.scss', { style: 'expanded' })
     .pipe(autoprefixer())
     .pipe(gulp.dest('assets/css'))
     .pipe(rename({suffix: '.min'}))
