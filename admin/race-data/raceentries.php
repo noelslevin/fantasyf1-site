@@ -1,5 +1,5 @@
 <h2>Race Entries</h2>
-<p>This page is for adding drivers to races. Please note, the script currently assumes there should be 22 entrants per race.</p>
+<p>This page is for adding drivers to races. Please note, the script currently assumes there should be 20 entrants per race.</p>
 
 <?php
 
@@ -24,8 +24,8 @@ if (isset($_POST['race_entries'])) {
 				$message .= "<p>Error. Entry not appended to the database.</p>";
 			}
 		}
-		if ($n == 22) {
-		// If 22 drivers have been added
+		if ($n == 20) {
+		// If 20 drivers have been added
 		$query = "UPDATE races SET status = 2 WHERE id = '$raceid'";
 			$result = mysql_query($query);
 			$affected = mysql_affected_rows();
