@@ -18,9 +18,9 @@ $query->execute();
 if ($query->rowCount() > 0) {
   $result = $query->fetchAll(PDO::FETCH_OBJ);
   echo "<table>\n";
-  echo "<thead><tr><th>Name</th><th>Bugs</th><th>Features</th><th>2015</th></tr></thead>\n";
+  echo "<thead><tr><th>Name</th><th>Bugs</th><th>Features</th><th>Preferences</th></tr></thead>\n";
   foreach ($result as $row) {
-    echo "<tr><td>".$row->username."</td><td>".$row->bugs."</td><td>".$row->features."</td><td>".$row->nextseason."</td></tr>\n";
+    echo "<tr><td>".$row->username."</td><td>".$row->bugs."</td><td>".$row->features."</td><td>".$row->preferences."</td></tr>\n";
   }
   echo "<tbody>\n";
   echo "</tbody></table>\n";
