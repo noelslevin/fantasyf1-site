@@ -243,6 +243,15 @@ object.trophy {
   }  
 }
 
+@media screen and (min-width: 45em) and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .homepage-panel.max-3 {
+        width: calc(95% / 3);
+    }
+    .homepage {
+        justify-content: space-between;
+    }
+}
+
 body {
   background: $secondary-color;
 }

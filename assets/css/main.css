@@ -10447,6 +10447,18 @@ object.trophy {
     width: calc((100% / 3) - 10px);
   }
 }
+@media screen and (min-width: 45em) and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .homepage-panel.max-3 {
+    width: calc(95% / 3);
+  }
+
+  .homepage {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
 body {
   background: #41A0BF;
 }
