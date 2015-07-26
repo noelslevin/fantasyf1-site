@@ -3771,15 +3771,15 @@ table.dataTable {
 
 table.dataTable thead, table.dataTable tfoot, .dataTables_paginate a {
   text-align: left;
-  background-color: #57c6ff;
+  /*background-color: #57c6ff;*/
 }
 
 table.dataTable tbody tr:nth-child(odd) {
-  background: #FFF;
+  /*background: #FFF;*/
 }
 
 table.dataTable tbody tr:nth-child(even) {
-  background: #F9F9F9;
+  /*background: #F9F9F9;*/
 }
 
 table.dataTable td, table.dataTable th {
@@ -3813,11 +3813,17 @@ table.dataTable td:last-child {
 
 .dataTables_paginate a {
   display: inline-block;
+  background: #FFCC00;
   padding: 10px;
   border: 2px solid #000;
   border-radius: 5px;
   margin: 5px;
   color: #000;
+}
+
+.dataTables_paginate a:hover {
+  color: #000;
+  background: #cca300;
 }
 
 table.dataTable thead, .dataTables_paginate a {
