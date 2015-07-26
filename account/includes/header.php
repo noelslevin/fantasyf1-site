@@ -38,7 +38,8 @@ if ($_SERVER['PHP_SELF'] == "/account/check-picks.php") {
 
 <header id=top-header>
 	<div class=row>
-		<div class="small-12 columns" id="race-car">
+		<div class="small-12 columns">
+            <div id="race-car"></div>
 		</div>
 	</div>
 </header>
