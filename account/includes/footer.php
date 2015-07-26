@@ -10,7 +10,7 @@
 <script src="/assets/js/main.min.js"></script>
 <?php
 if ($page == "check-picks") {
-        echo "<script src=\"/assets/jquery.dataTables.min.js\"></script>\n";
+        echo "<script src=\"/assets/js/jquery.dataTables.min.js\"></script>\n";
 }
 ?>
 <script>

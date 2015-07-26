@@ -19,7 +19,7 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('assets/css'));
 });
 
-gulp.task('scripts', function() {
+gulp.task('general-scripts', function() {
   return gulp.src(['src/js/modernizr.js', 'src/js/jquery.js', 'src/js/scripts.js', 'src/js/foundation.min.js'])
     .pipe(concat('main.js'))
     .pipe(gulp.dest('assets/js'))
@@ -27,6 +27,15 @@ gulp.task('scripts', function() {
     .pipe(uglify())
     .pipe(gulp.dest('assets/js'))
 });
+      
+gulp.task('datatables-scripts', function() {
+  return gulp.src(['src/js/jquery.dataTables.js'])
+    .pipe(rename({suffix: '.min'}))
+    .pipe(uglify())
+    .pipe(gulp.dest('assets/js'))
+});
+
+gulp.task('scripts', ['general-scripts', 'datatables-scripts']);
 
 gulp.task('images', function() {
   return gulp.src('src/img/**/*')
