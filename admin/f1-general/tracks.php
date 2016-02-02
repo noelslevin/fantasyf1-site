@@ -5,18 +5,19 @@ echo "<h2>Create Tracks</h2>";
 $message = NULL;
 if (isset($_POST['submittracks'])) {
 	$trackname = $_POST['trackname'];
-	$query = "SELECT * FROM tracks WHERE track_name = '$trackname'";
-	$result = mysql_query($query);
-	if (mysql_num_rows($result) == 0) {
+  $sql = $dbh->prepare("SELECT * FROM tracks WHERE track_name = :trackname");
+  $sql->execute(array(':trackname' => $trackname));
+  $row = $sql->fetchAll(PDO::FETCH_OBJ);
+	if ($sql->rowCount() == 0) {
 		// Track not already there, can enter
-		$query = "INSERT INTO tracks (track_name) VALUES ('$trackname')";
-		$result = mysql_query($query);
-		if ($result) {
+    $sql = $dbh->prepare("INSERT INTO tracks (track_name) VALUES (:trackname)");
+    $sql->execute(array(':trackname' => $trackname));
+		if ($sql->rowCount() == 1) {
 			$message .= "<p>Record entered successfully.</p>";
 			}
 		else {
 			// Record not entered.
-			$message .= "<p>Error: Record not entered. ".mysql_error()."</p>";
+			$message .= "<p>Error: Record not entered.</p>";
 			}
 		}
 	else {

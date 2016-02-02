@@ -9,23 +9,25 @@ if (isset($_POST['submitdrivers'])) {
 	if (!empty($_POST['forename'])) { $forename = $_POST['forename']; }
 	if (!empty($_POST['surname'])) { $surname = $_POST['surname']; }
 	if ($forename && $surname) {
-		$query = "SELECT * FROM drivers WHERE forename = '$forename' AND surname = '$surname'";
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) == 0) {
-			// Driver not already there, can enter
-			$query = "INSERT INTO drivers (forename, surname) VALUES ('$forename', '$surname')";
-			$result = mysql_query($query);
-			if ($result) {
+    // Check to make sure the driver doesn't already exist
+    $sql = $dbh->prepare("SELECT * FROM drivers WHERE forename = :forename AND surname = :surname");
+    $sql->execute(array(':forename' => $forename, ':surname' => $surname));
+    $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+		if ($sql->rowCount() == 0) {
+      // No driver found
+			$sql = $dbh->prepare("INSERT INTO drivers (forename, surname) VALUES (:forename, :surname)");
+      $sql->execute(array(':forename' => $forename, ':surname' => $surname));
+			if ($sql->rowCount() == 1) {
 				$output .= "<p>Record entered successfully.</p>";
 				}
 			else {
 				// Record not entered.
-				$output .= "<p>Error: Record not entered. ".mysql_error()."</p>";
+				$output .= "<p>Error: Record not entered.</p>";
 				}
 			}
 		else {
 			// Driver already on database
-			$output .="<p>Error: Driver already on database – not entered.</p>";
+			$output .="<p>Error: Driver already on database. Record cannot be added.</p>";
 			}
 		}
 		else {

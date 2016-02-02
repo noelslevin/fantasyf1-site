@@ -11,13 +11,14 @@ if (isset($_POST['teamstoseasons'])) {
 	$teamid = $_POST['team_id'];
 	$season = $_POST['season'];
 	$teamname = $_POST['team_name'];
-	$query = "SELECT * FROM teamstoseasons WHERE teams_id = '$teamid' AND season = '$season'";
-	$result = mysql_query ($query);
+  $sql = $dbh->prepare("SELECT * FROM teamstoseasons WHERE teams_id = :teamid AND season = :season");
+  $sql->execute(array(':teamid' => $teamid, ':season' => $season));
+  $row = $sql->fetchAll(PDO::FETCH_OBJ);
 	// If record does not already exist
-	if (mysql_num_rows($result) == 0) {
-		$query = "INSERT INTO teamstoseasons (teams_id, season, teamname) VALUES ('$teamid', '$season', '$teamname')";
-		$result = mysql_query ($query);
-		if (mysql_affected_rows() > 0) {
+	if ($sql->rowCount() == 0) {
+    $sql = $dbh->prepare("INSERT INTO teamstoseasons (teams_id, season, teamname) VALUES (:teamid, :season, :teamname)");
+    $sql->execute(array(':teamid' => $teamid, ':season' => $season, ':teamname' => $teamname));
+		if ($sql->rowCount() == 1) {
 			$message .= "<p>The record was successfully added into the database.</p>";
 		}
 		else {
@@ -32,14 +33,13 @@ if (isset($_POST['teamstoseasons'])) {
 echo "<form action =\"".$_SERVER['PHP_SELF']."?page=teamstoseasons\" method=\"post\">\n\n";
 
 // Select all teams from the database
-$query = "SELECT teams.id, teams.team_name FROM teams ORDER BY teams.team_name";
-$result = mysql_query ($query);
-if (mysql_num_rows ($result) > 0) {
+$sql = $dbh->prepare("SELECT teams.id, teams.team_name FROM teams WHERE status = 'A' ORDER BY teams.team_name");
+$sql->execute();
+$row = $sql->fetchAll(PDO::FETCH_OBJ);
+if ($sql->rowCount() > 0) {
 	echo "<select name = \"team_id\">\n";
-	while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-		$id = $row['id'];
-		$name = $row['team_name'];
-		echo "<option value=\"".$id."\">".$name."</option>\n";
+	foreach ($row as $result) {
+		echo "<option value=\"".$result->id."\">".$result->team_name."</option>\n";
 	}
 	echo "</select><br/>\n\n";
 }

@@ -13,13 +13,14 @@ if (isset($_POST['createrace'])) {
 	$deadline = strtotime($gpdate); // EPOCH time of race date
 	$deadline = $deadline - 172800; // Subtract two days for Friday date (picks deadline)
 	
-	$query = "SELECT * FROM races WHERE race_date = '$gpdate'";
-	$result = mysql_query ($query);
+  $sql = $dbh->prepare("SELECT * FROM races WHERE race_date = :gpdate");
+  $sql->execute(array(':gpdate' => $gpdate));
+  $row = $sql->fetchAll(PDO::FETCH_OBJ);
 	// If record does not already exist
-	if (mysql_num_rows($result) == 0) {
-		$query = "INSERT INTO races (trackstograndsprix_id, race_date, picksdeadline) VALUES ('$raceid', '$gpdate', '$deadline')";
-		$result = mysql_query ($query);
-		if (mysql_affected_rows() > 0) {
+	if ($sql->rowCount() == 0) {
+    $sql = $dbh->prepare("INSERT INTO races (trackstograndsprix_id, race_date, picksdeadline) VALUES (:raceid, :gpdate, :deadline)");
+    $sql->execute(array(':raceid' => $raceid, ':gpdate' => $gpdate, ':deadline' => $deadline));
+		if ($sql->rowCount() > 0) {
 			$message .= "<p>The record was successfully added into the database.</p>";
 		}
 		else {
@@ -34,16 +35,14 @@ if (isset($_POST['createrace'])) {
 echo "<form action =\"".$_SERVER['PHP_SELF']."?page=races\" method=\"post\">\n\n";
 
 // Select all race/track combinations from the database
-$query = "SELECT trackstograndsprix.id, tracks.track_name, grandsprix.grand_prix_name FROM trackstograndsprix, tracks, grandsprix WHERE trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id ORDER BY grand_prix_name, track_name ASC";
-$result = mysql_query ($query);
+$sql = $dbh->prepare("SELECT trackstograndsprix.id, tracks.track_name, grandsprix.grand_prix_name FROM trackstograndsprix, tracks, grandsprix WHERE trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id ORDER BY grand_prix_name, track_name ASC");
+$sql->execute();
+$row = $sql->fetchAll(PDO::FETCH_OBJ);
 // If data is found
-if (mysql_num_rows ($result) > 0) {
+if ($sql->rowCount() > 0) {
 	echo "<select name = \"race_id\">\n";
-	while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-		$id = $row['id'];
-		$track = $row['track_name'];
-		$gp = $row['grand_prix_name'];
-		echo "<option value=\"".$id."\">".$gp." @ ".$track."</option>\n";
+	foreach ($row as $result) {
+		echo "<option value=\"".$result->id."\">".$result->grand_prix_name." @ ".$result->track_name."</option>\n";
 		
 	}
 	echo "</select>\n\n";
