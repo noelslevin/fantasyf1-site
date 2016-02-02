@@ -9,13 +9,15 @@ $message = NULL;
 if (isset($_POST['trackstograndsprix'])) {
 	$trackid = $_POST['track_id'];
 	$grandprixid = $_POST['grandsprix_id'];
-	$query = "SELECT * FROM trackstograndsprix WHERE tracks_id = '$trackid' AND grandsprix_id = '$grandprixid'";
-	$result = mysql_query ($query);
+  $sql = $dbh->prepare("SELECT * FROM trackstograndsprix WHERE tracks_id = :trackid AND grandsprix_id = :grandprixid");
+  $sql->execute(array(':trackid' => $trackid, ':grandprixid' => $grandprixid));
+  $row = $sql->fetchAll(PDO::FETCH_OBJ);  
 	// If record does not already exist
-	if (mysql_num_rows($result) == 0) {
-		$query = "INSERT INTO trackstograndsprix (tracks_id, grandsprix_id) VALUES ('$trackid', '$grandprixid')";
-		$result = mysql_query ($query);
-		if (mysql_affected_rows() > 0) {
+	if ($sql->rowCount() == 0) {
+    $sql = $dbh->prepare("INSERT INTO trackstograndsprix (tracks_id, grandsprix_id) VALUES (:trackid, :grandprixid)");
+    $sql->execute(array(':trackid' => $trackid, ':grandprixid' => $grandprixid));
+    $row = $sql->fetchAll(PDO::FETCH_OBJ);
+		if ($sql->rowCount() > 0) {
 			$message .= "<p>The record was successfully added into the database.</p>";
 		}
 		else {
@@ -30,15 +32,14 @@ if (isset($_POST['trackstograndsprix'])) {
 echo "<form action =\"".$_SERVER['PHP_SELF']."?page=trackstograndsprix\" method=\"post\">\n\n";
 
 // Select all tracks from the database
-$query = "SELECT * FROM tracks ORDER by track_name ASC";
-$result = mysql_query ($query);
+$sql = $dbh->prepare("SELECT * FROM tracks ORDER by track_name ASC");
+$sql->execute();
+$row = $sql->fetchAll(PDO::FETCH_OBJ);
 // If tracks are found
-if (mysql_num_rows ($result) > 0) {
+if ($sql->rowCount() > 0) {
 	echo "<select name = \"track_id\">\n";
-	while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-		$id = $row['ID'];
-		$trackname = $row['track_name'];
-		echo "<option value=\"".$id."\">".$trackname."</option>\n";
+	foreach ($row as $result) {
+		echo "<option value=\"".$result->ID."\">".$result->track_name."</option>\n";
 	}
 	echo "</select>\n\n";
 }
@@ -46,15 +47,14 @@ else {
 	$message .= "<p>No tracks found.</p>\n";
 }
 // Select all grands prix from the database
-$query = "SELECT * FROM grandsprix ORDER BY grand_prix_name ASC";
-$result = mysql_query ($query);
+$sql = $dbh->prepare("SELECT * FROM grandsprix ORDER BY grand_prix_name ASC");
+$sql->execute();
+$row = $sql->fetchAll(PDO::FETCH_OBJ);
 // If Grands Prix are found
-if (mysql_num_rows ($result) > 0) {
+if ($sql->rowCount() > 0) {
 	echo "<select name = \"grandsprix_id\">\n";
-	while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-		$id = $row['ID'];
-		$name = $row['grand_prix_name'];
-		echo "<option value=\"".$id."\">".$name."</option>\n";
+	foreach ($row as $result) {
+		echo "<option value=\"".$result->ID."\">".$result->grand_prix_name."</option>\n";
 	}
 	echo "</select>\n\n";
 }

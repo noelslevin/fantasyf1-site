@@ -12,8 +12,7 @@
 
 <?php
 
-$sql = "SELECT * FROM fantasyusers WHERE registered = '1'";
-$query = $dbh->prepare($sql);
+$query = $dbh->prepare("SELECT * FROM fantasyusers WHERE registered = '1'");
 $query->execute();
 if ($query->rowCount() > 0) {
   $result = $query->fetchAll(PDO::FETCH_OBJ);

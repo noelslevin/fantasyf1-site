@@ -3,9 +3,10 @@
 if (isset($_POST['createfantasyteam'])) {
 	$teamname = $_POST['teamname'];
 	if (!empty($teamname)) {
-		$query = "INSERT INTO fantasyteams (fantasyteam_name) VALUES ('$teamname')";
-		$result = mysql_query($query);
-		if ($result) {
+    $sql = $dbh->prepare("INSERT INTO fantasyteams (fantasyteam_name) VALUES (:teamname)");
+    $sql->execute(array(':teamname' => $teamname));
+    $row = $sql->fetchAll(PDO::FETCH_OBJ);
+		if ($sql->rowCount() == 1) {
 			echo "<p>Success. Team name added to the database.</p>";
 		}
 		else {
