@@ -11,9 +11,10 @@ if (isset($_POST['submitresults'])) {
 	$points = $_POST['points'];
 	$raceentryid = $_POST['raceentryid'];
 	$race = $_POST['race'];
-	$query = "UPDATE raceentries SET race_position = '$position', race_points = '$points' WHERE id = '$raceentryid'";
-	$result = mysql_query ($query);
-	if (mysql_affected_rows() > 0) {
+  $sql = $dbh->prepare("UPDATE raceentries SET race_position = :position, race_points = :points WHERE id = :raceentryid");
+  $sql->execute(array(':position' => $position, ':points' => $points, ':raceentryid' => $raceentryid));
+  $row = $sql->fetchAll(PDO::FETCH_OBJ);
+	if ($sql->rowCount() > 0) {
 		echo "<p>Updated.</p>";
 		}
 	else {
@@ -31,16 +32,15 @@ if (isset($_POST['resultspage']) or (isset($race))) {
 	}
 	
 	// Select all drivers from the race_id specified
-
-	$query = "SELECT * FROM `view_ff1allraceresults` WHERE id = '$raceid' AND ISNULL(race_position) ORDER BY fantasy_value DESC";
-	$result = mysql_query ($query);
-	if (mysql_num_rows($result) > 0) {
+  $sql = $dbh->prepare("SELECT * FROM `view_ff1allraceresults` WHERE id = :raceid AND ISNULL(race_position) ORDER BY fantasy_value DESC");
+  $sql->execute(array(':raceid' => $raceid));
+  $row = $sql->fetchAll(PDO::FETCH_OBJ);
+	if ($sql->rowCount() > 0) {
 		echo "<form action =\"".$_SERVER['PHP_SELF']."?page=raceresults\" method=\"post\">\n\n";
 		echo "<select name=\"raceentryid\">\n";
-		while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-			$raceentryid = $row['raceentries_id'];
+		foreach ($row as $result) {
 			// How do I do this?
-			echo "<option value=\"".$raceentryid."\">".$row['forename']." ".$row['surname']."</option>\n";
+			echo "<option value=\"".$result->raceentries_id."\">".$result->forename." ".$result->surname."</option>\n";
 		}
 		echo "</select>";
 		echo "Position: <input type=\"text\" name=\"position\" />\n\n";
@@ -58,16 +58,13 @@ if (isset($_POST['resultspage']) or (isset($race))) {
 echo "<form action =\"".$_SERVER['PHP_SELF']."?page=raceresults\" method=\"post\">\n\n";
 
 // Select all Grands Prix
-$query = "SELECT races.id, grandsprix.grand_prix_name, tracks.track_name, races.race_date FROM grandsprix, races, tracks, trackstograndsprix WHERE races.trackstograndsprix_id = trackstograndsprix.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND races.status = '4' ORDER BY races.race_date DESC";
-$result = mysql_query ($query);
-if (mysql_num_rows ($result) > 0) {
+$sql = $dbh->prepare("SELECT races.id, grandsprix.grand_prix_name, tracks.track_name, races.race_date FROM grandsprix, races, tracks, trackstograndsprix WHERE races.trackstograndsprix_id = trackstograndsprix.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND races.status = '4' ORDER BY races.race_date DESC");
+$sql->execute();
+$row = $sql->fetchAll(PDO::FETCH_OBJ);
+if ($sql->rowCount() > 0) {
 	echo "<select name = \"race_id\">\n";
-	while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-	$raceid = $row['id'];
-	$grandprix = $row['grand_prix_name'];
-	$track = $row['track_name'];
-	$date = $row['race_date'];
-	echo "<option value=\"".$raceid."\">".$grandprix." (".$date.")</option>\n";
+	foreach ($row as $result) {
+	echo "<option value=\"".$result->id."\">".$result->grand_prix_name." (".$result->race_date.")</option>\n";
 	}
 	echo "</select>\n\n";
 }

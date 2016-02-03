@@ -11,10 +11,10 @@ if (isset($_POST['race_entries'])) {
 	$raceid = $_POST['race_id'];
 	if (!empty($_POST['driver'])) {
 		foreach ($_POST['driver'] as $driver) {
-			$query = "INSERT INTO raceentries (driverstoseasons_id, races_id) VALUES ('$driver', '$raceid')";
-			$result = mysql_query ($query);
-			$affected = mysql_affected_rows();
-			if ($affected == 1) {
+      $sql = $dbh->prepare("INSERT INTO raceentries (driverstoseasons_id, races_id) VALUES (:driver, :raceid)");
+      $sql->execute(array(':driver' => $driver, ':raceid' => $raceid));
+      $row = $sql->fetchAll(PDO::FETCH_OBJ);
+			if ($sql->rowCount() == 1) {
 			$n++;
 				//$message .= "<p>Driver ID ".$driver." added to race ID ".$raceid." the database.</p>";
 				// Driver added
@@ -26,10 +26,10 @@ if (isset($_POST['race_entries'])) {
 		}
 		if ($n == 20) {
 		// If 20 drivers have been added
-		$query = "UPDATE races SET status = 2 WHERE id = '$raceid'";
-			$result = mysql_query($query);
-			$affected = mysql_affected_rows();
-			if ($affected == 1) {
+		$sql = $dbh->prepare("UPDATE races SET status = 2 WHERE id = :raceid");
+    $sql->execute(array(':raceid' => $raceid));
+    $row = $sql->fetchAll(PDO::FETCH_OBJ);
+			if ($sql->rowCount() == 1) {
 			// One race updated and marked as complete.
 				echo "<p>Drivers entered and race status updated.</p>";
 			}
@@ -52,15 +52,12 @@ if (isset($_POST['race_entries'])) {
 echo "<form action=\"".$_SERVER['PHP_SELF']."?page=raceentries\" method=\"post\">\n\n";
 
 // Select all drivers
-$query = "SELECT driverstoseasons.id, drivers.forename, drivers.surname, teams.team_name FROM drivers, teams, driverstoseasons, teamstoseasons WHERE driverstoseasons.drivers_id = drivers.id AND driverstoseasons.teamstoseasons_id = teamstoseasons.id AND teamstoseasons.teams_id = teams.id AND teamstoseasons.season = '$year' ORDER BY teams.team_name ASC, drivers.forename ASC, drivers.surname ASC";
-$result = mysql_query ($query);
-if (mysql_num_rows ($result) > 0) {
-	while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-	$driverid = $row['id'];
-	$forename = $row['forename'];
-	$surname = $row['surname'];
-	$team = $row['team_name'];
-	echo "<input type=\"checkbox\" checked=\"checked\" name=\"driver[]\" value=\"".$driverid."\" />".$forename." ".$surname." (".$team.")<br/>\n";
+$sql = $dbh->prepare("SELECT driverstoseasons.id, drivers.forename, drivers.surname, teams.team_name FROM drivers, teams, driverstoseasons, teamstoseasons WHERE driverstoseasons.drivers_id = drivers.id AND driverstoseasons.teamstoseasons_id = teamstoseasons.id AND teamstoseasons.teams_id = teams.id AND teamstoseasons.season = :year ORDER BY teams.team_name ASC, drivers.forename ASC, drivers.surname ASC");
+$sql->execute(array(':year' => $year));
+$row = $sql->fetchAll(PDO::FETCH_OBJ);
+if ($sql->rowCount() > 0) {
+	foreach ($row as $result) {
+	echo "<input type=\"checkbox\" checked=\"checked\" name=\"driver[]\" value=\"".$result->id."\" />".$result->forename." ".$result->surname." (".$result->team_name.")<br/>\n";
 	}
 	echo "\n";
 }
@@ -69,16 +66,13 @@ else {
 }
 
 // Select all Grands Prix
-$query = "SELECT races.id, grandsprix.grand_prix_name, tracks.track_name, races.race_date FROM grandsprix, races, tracks, trackstograndsprix WHERE races.trackstograndsprix_id = trackstograndsprix.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND races.status = '1' ORDER BY races.race_date ASC";
-$result = mysql_query ($query);
-if (mysql_num_rows ($result) > 0) {
+$sql = $dbh->prepare("SELECT races.id, grandsprix.grand_prix_name, tracks.track_name, races.race_date FROM grandsprix, races, tracks, trackstograndsprix WHERE races.trackstograndsprix_id = trackstograndsprix.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND races.status = '1' ORDER BY races.race_date ASC");
+$sql->execute();
+$row = $sql->fetchAll(PDO::FETCH_OBJ);
+if ($sql->rowCount() > 0) {
 	echo "<select name = \"race_id\">\n";
-	while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-	$raceid = $row['id'];
-	$grandprix = $row['grand_prix_name'];
-	$track = $row['track_name'];
-	$date = $row['race_date'];
-	echo "<option value=\"".$raceid."\">".$grandprix." (".$date.")</option>\n";
+	foreach ($row as $result) {
+	echo "<option value=\"".$result->id."\">".$result->grand_prix_name." (".$result->race_date.")</option>\n";
 	}
 	echo "</select>\n\n";
 }
