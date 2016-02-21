@@ -1,6 +1,6 @@
 <?php
 
-$sql = $dbh->prepare("SELECT registered FROM fantasyusers WHERE fantasyusers.id = :fantasyuser");
+$sql = $dbh->prepare("SELECT status FROM fantasyusers WHERE fantasyusers.id = :fantasyuser");
 $sql->execute(array(':fantasyuser' => $_SESSION['user_id']));
 $row = $sql->fetch(PDO::FETCH_ASSOC);
 $totalrows = count($row);
