@@ -5,8 +5,8 @@ $sql->execute(array(':fantasyuser' => $_SESSION['user_id']));
 $row = $sql->fetch(PDO::FETCH_ASSOC);
 $totalrows = count($row);
 if ($sql->rowCount() == 1) {
-	$agreement = $row['registered'];
-	if ($agreement != 1) {
+	$status = $row['status'];
+	if ($status != 'A') {
 		echo "<div class=panel>";
 		echo "<p>You must agree to the site terms below to continue.</p>\n";
 		echo "<ol>\n";

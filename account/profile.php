@@ -36,8 +36,6 @@ if (isset($_SESSION['user_id'])) {
 	echo "<div class=row>\n";
 	echo "<div class=\"small-12 columns\">\n";
 	echo "<h1>User profile</h1>";
-    //echo "<div data-alert class=\"alert-box info radius\">\n";
-    //echo "<p style=\"margin-bottom: 0;\">I need your feedback! Please take two minutes to fill in the <a href=\"feedback.php\" \">feedback form</a>. Thanks!</p>\n";
   echo "<div data-alert class=\"alert-box warning radius\">\n";
   echo "<p style=\"margin-bottom: 0;\">Please make sure you have agreed to the site terms and expressed your preference for team and teammate on this page. This is very important to ensure you are registered to play FantasyF1 this season.</p>\n";
   echo "</div>\n";
@@ -68,7 +66,7 @@ if (isset($_SESSION['user_id'])) {
 		$terms = 0;
 		$terms = $_POST['terms'];
 		if ($terms == 1) {
-			$sql = $dbh->prepare("UPDATE fantasyusers SET registered = 1 WHERE id = :userid");
+			$sql = $dbh->prepare("UPDATE fantasyusers SET status = 'A' WHERE id = :userid");
 			$sql->execute(array(':userid' => $_SESSION['user_id']));
 			if ($sql->rowCount() == 1) {
 				echo "<p>You have agreed to the site terms.</p>";
@@ -129,7 +127,7 @@ if (isset($_SESSION['user_id'])) {
 			}
 		}
 		else {
-            emailaddress();
+      emailaddress();
 			changepassword();
 			error();
 		}
@@ -137,7 +135,7 @@ if (isset($_SESSION['user_id'])) {
 	include('includes/footer.php');
 	}
 	else {
-        emailaddress();
+    emailaddress();
 		changepassword();
 		echo "</div>\n</div>\n";
 		include 'includes/footer.php';
