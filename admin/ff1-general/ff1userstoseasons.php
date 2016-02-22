@@ -20,9 +20,9 @@ echo "<h2>Fantasy Users To Seasons</h2>\n";
 
 echo "<form action=".$_SERVER['PHP_SELF']."?page=ff1userstoseasons method=post>\n\n";
 
-// Select all fantasy users not registered but not linked to a team in the current year
+// Select all active fantasy users not not linked to a team in the current year
 $query = "SELECT fantasyusers.id AS fantasyusers_id, fantasyusers.username FROM fantasyusers
-WHERE registered = 1 AND username NOT IN (SELECT username FROM `fantasyusers` INNER JOIN fantasyteamstoseasons INNER JOIN fantasyuserstoseasons ON fantasyuserstoseasons.fantasyusers_id = fantasyusers.id AND fantasyuserstoseasons.fantasyteamstoseasons_id = fantasyteamstoseasons.id WHERE fantasyteamstoseasons.season = YEAR(CURDATE())) ORDER BY username ASC";
+WHERE status = 'A' AND username NOT IN (SELECT username FROM `fantasyusers` INNER JOIN fantasyteamstoseasons INNER JOIN fantasyuserstoseasons ON fantasyuserstoseasons.fantasyusers_id = fantasyusers.id AND fantasyuserstoseasons.fantasyteamstoseasons_id = fantasyteamstoseasons.id WHERE fantasyteamstoseasons.season = YEAR(CURDATE())) ORDER BY username ASC";
 $result = mysql_query ($query);
 if (mysql_num_rows ($result) > 0) {
 	echo "<select name=fantasy_user_id>\n";
