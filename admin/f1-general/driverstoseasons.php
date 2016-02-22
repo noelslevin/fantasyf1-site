@@ -20,7 +20,7 @@ if (isset($_POST['driverstoseasons'])) {
     if ($sql->rowCount() == 0) {
 	// If record does not already exist
 		$sql = $dbh->prepare("INSERT INTO driverstoseasons (drivers_id, teamstoseasons_id) VALUES (:driverid, :teamid)");
-    $dbh->execute(array(':driverid' => $driverid, ':teamid' => $teamid));
+    $sql->execute(array(':driverid' => $driverid, ':teamid' => $teamid));
 		if ($sql->rowCount() > 0) {
 			$output .= "<p>The record was successfully added into the database.</p>";
 		}
