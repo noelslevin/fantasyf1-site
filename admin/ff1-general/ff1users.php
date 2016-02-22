@@ -33,6 +33,8 @@ else {
 echo "<input type=\"submit\" value=\"Update User\" name=\"fantasyusersupdate\" />\n\n";
 echo "</form>\n\n";
 
-echo $message;
+if (isset($message)) {
+  echo $message;
+}
 
 ?>
