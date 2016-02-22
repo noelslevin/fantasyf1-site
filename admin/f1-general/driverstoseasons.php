@@ -58,8 +58,8 @@ else {
 	$output .= "<p>No drivers found.</p>\n";
 }
 // Select all teams from the database
-$sql = $dbh->prepare("SELECT teamstoseasons.id, teamstoseasons.teamname, teamstoseasons.season FROM teamstoseasons WHERE teamstoseasons.season = ':date' ORDER BY teamstoseasons.teamname");
-$sql->execute(array(':date', $date));
+$sql = $dbh->prepare("SELECT teamstoseasons.id, teamstoseasons.teamname, teamstoseasons.season FROM teamstoseasons WHERE teamstoseasons.season = '$date' ORDER BY teamstoseasons.teamname");
+$sql->execute();
 $row = $sql->fetchAll(PDO::FETCH_OBJ);
 if ($sql->rowCount() > 0) {
 	echo "<select name = \"team_id\">\n";
