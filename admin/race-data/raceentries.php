@@ -24,8 +24,8 @@ if (isset($_POST['race_entries'])) {
 				$message .= "<p>Error. Entry not appended to the database.</p>";
 			}
 		}
-		if ($n == 20) {
-		// If 20 drivers have been added
+		if ($n == 22) {
+		// If 22 drivers have been added
 		$sql = $dbh->prepare("UPDATE races SET status = 2 WHERE id = :raceid");
     $sql->execute(array(':raceid' => $raceid));
     $row = $sql->fetchAll(PDO::FETCH_OBJ);
