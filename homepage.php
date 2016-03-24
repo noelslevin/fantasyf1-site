@@ -37,8 +37,8 @@
 
   <div class="small-12 medium-4 columns homepage-panel max-3">
     <a href="/account/">
-      <h2>Account</h2>
-      <p>If you're registered to play FantasyF1, this is your route in to make your picks.</p>
+      <h2>Log In</h2>
+      <p>If you're registered to play FantasyF1, you can log in here. If you're not, you can register here.</p>
     </a>
   </div>
 
