@@ -1,6 +1,6 @@
 <?php
 
-$active = 0;
+$active = 1;
 
 function regform() {
 	include('includes/register.html');
