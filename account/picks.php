@@ -33,7 +33,7 @@ if (isset($_SESSION['user_id'])) {
 	include 'terms.php';
 	include ('picks/registration_details.php');
 	
-	if ($registered == 1 && $agreement == 1) {
+	if ($registered == 1) {
 		if (isset($_POST['submitpicks'])) {
 			include ('picks/picks_deadline.php');
 			if ($canpick == 1) {
