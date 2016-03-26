@@ -16,39 +16,40 @@ if (isset($_SESSION['user_id'])) {
         <p>All columns are searchable and orderable.</p>
     <?php
     $message = NULL;
-    $query = "SELECT username, forename, surname, team_name, grand_prix_name, race_points FROM `view_ff1allfantasypicks` WHERE status > 3 ORDER BY races_id DESC, fantasy_value DESC";
-    $result = mysql_query($query);
-    $num = mysql_num_rows($result);
-        if ($num > 0) {
-        echo "<table id=\"ff1picks\" class=\"display\">
-        <thead>
-        <tr>
-        <th>Username</th>
-        <th>Driver</th>
-        <th>Team</th>
-        <th>Grand Prix</th>
-        <th>Points</th>
-        </tr>
-        </thead>
-        <tbody>\n";
-        while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-            $username = $row['username'];
-            $driver = $row['forename']." ".$row['surname'];
-            $team = $row['team_name'];
-            $gp = $row['grand_prix_name'];
-            $points = $row['race_points'];
+    $sql = $dbh->prepare("SELECT username, forename, surname, team_name, grand_prix_name, race_points FROM `view_ff1allfantasypicks` WHERE status > 3 ORDER BY races_id DESC, fantasy_value DESC");
+    $sql->execute();
+    $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+    $totalrows = count($row);
+    if ($sql->rowCount() > 0) {
+      echo "<table id=\"ff1picks\" class=\"display\">
+      <thead>
+      <tr>
+      <th>Username</th>
+      <th>Driver</th>
+      <th>Team</th>
+      <th>Grand Prix</th>
+      <th>Points</th>
+      </tr>
+      </thead>
+      <tbody>\n";
+      foreach ($row as $result) {
+        $username = $result['username'];
+        $driver = $result['forename']." ".$result['surname'];
+        $team = $result['team_name'];
+        $gp = $result['grand_prix_name'];
+        $points = $result['race_points'];
 
-            echo "<tr>
-            <td>".$username."</td>
-            <td>".$driver."</td>
-            <td>".$team."</td>
-            <td>".$gp."</td>
-            <td>".$points."</td>
-            </tr>
-            ";
-        }
-        echo "</tbody>
-        </table>\n";
+        echo "<tr>
+        <td>".$username."</td>
+        <td>".$driver."</td>
+        <td>".$team."</td>
+        <td>".$gp."</td>
+        <td>".$points."</td>
+        </tr>
+        ";
+      }
+      echo "</tbody>
+      </table>\n";
     }
     else {
         $message .= "<p>Error: No data found. Looks like the deadline for picks for the first race hasn't passed yet.</p>";

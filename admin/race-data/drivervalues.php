@@ -11,9 +11,10 @@ if (isset($_POST['drivervalues'])) {
 	$raceid = $_POST['race_id'];
 
 	// Select all drivers from the race_id specified
-	$query = "SELECT raceentries.id, raceentries.driverstoseasons_id, drivers.forename, drivers.surname, teams.team_name, races.id AS races_id, teamstoseasons.base_price, races.race_date FROM races, trackstograndsprix, tracks, grandsprix, drivers, teams, raceentries, driverstoseasons, teamstoseasons WHERE raceentries.races_id = races.id AND raceentries.driverstoseasons_id = driverstoseasons.id AND races.trackstograndsprix_id = trackstograndsprix.id AND driverstoseasons.drivers_id = drivers.id AND driverstoseasons.teamstoseasons_id = teamstoseasons.id AND teamstoseasons.teams_id = teams.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND races.id = '$raceid' ORDER BY teams.id ASC, drivers.id ASC";
-	$result = mysql_query ($query);
-	if (mysql_num_rows($result) > 0) {
+	$sql = $dbh->prepare("SELECT raceentries.id, raceentries.driverstoseasons_id, drivers.forename, drivers.surname, teams.team_name, races.id AS races_id, teamstoseasons.base_price, races.race_date FROM races, trackstograndsprix, tracks, grandsprix, drivers, teams, raceentries, driverstoseasons, teamstoseasons WHERE raceentries.races_id = races.id AND raceentries.driverstoseasons_id = driverstoseasons.id AND races.trackstograndsprix_id = trackstograndsprix.id AND driverstoseasons.drivers_id = drivers.id AND driverstoseasons.teamstoseasons_id = teamstoseasons.id AND teamstoseasons.teams_id = teams.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND races.id = :raceid ORDER BY teams.id ASC, drivers.id ASC");
+  $sql->execute(array(':raceid' => $raceid));
+  $row = $sql->fetchAll(PDO::FETCH_OBJ);
+  if ($sql->rowCount() > 0) {
 		echo "<table>\n";
 		echo "<thead>\n";
 		echo "<tr>\n";
@@ -30,17 +31,17 @@ if (isset($_POST['drivervalues'])) {
 		echo "</tr>\n";
 		echo "</thead>\n";
 		echo "<tbody>\n";
-		while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
+		foreach ($row as $result) {
 			// This variable will be used for accessing the correct array positions
 			$arraynum = 0;
 			// Set up the arrays
-			$driverid[] = $row['driverstoseasons_id'];
-			$forename[] = $row['forename'];
-			$surname[] = $row['surname'];
-			$teamname[] = $row['team_name'];
-			$baseprice[] = $row['base_price'];
-			$racedate[] = $row['race_date'];
-			$entryid[] = $row['id'];
+			$driverid[] = $result->driverstoseasons_id;
+			$forename[] = $result->forename;
+			$surname[] = $result->surname;
+			$teamname[] = $result->team_name;
+			$baseprice[] = $result->base_price;
+			$racedate[] = $result->race_date;
+			$entryid[] = $result->id;
 		}
 		foreach ($driverid as $f1driverid) {
 			// Set variable to 0 as it only needs to count to 5
@@ -53,12 +54,13 @@ if (isset($_POST['drivervalues'])) {
 			echo "<td>".$teamname[$arraynum]."</td>";
 			
 			// Find recent results - must be in the current season, with the current drivers, at their current team, and no more than 5
-			$pricequery = "SELECT raceentries.id AS raceentryid, raceentries.driverstoseasons_id, drivers.forename, drivers.surname, teams.team_name, races.id AS races_id, raceentries.race_points FROM races, trackstograndsprix, tracks, grandsprix, drivers, teams, raceentries, driverstoseasons, teamstoseasons WHERE raceentries.races_id = races.id AND raceentries.driverstoseasons_id = driverstoseasons.id AND races.trackstograndsprix_id = trackstograndsprix.id AND driverstoseasons.drivers_id = drivers.id AND driverstoseasons.teamstoseasons_id = teamstoseasons.id AND teamstoseasons.teams_id = teams.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND driverstoseasons.id = '$driverid[$arraynum]' AND races.race_date < '$racedate[$arraynum]' ORDER BY races.race_date DESC LIMIT 5";
-			$priceresult = mysql_query($pricequery);
-			if (mysql_num_rows ($priceresult) > 0) {
-				while ($pricerow = mysql_fetch_array ($priceresult, MYSQL_ASSOC)) {
+			$sql = $dbh->prepare("SELECT raceentries.id AS raceentryid, raceentries.driverstoseasons_id, drivers.forename, drivers.surname, teams.team_name, races.id AS races_id, raceentries.race_points FROM races, trackstograndsprix, tracks, grandsprix, drivers, teams, raceentries, driverstoseasons, teamstoseasons WHERE raceentries.races_id = races.id AND raceentries.driverstoseasons_id = driverstoseasons.id AND races.trackstograndsprix_id = trackstograndsprix.id AND driverstoseasons.drivers_id = drivers.id AND driverstoseasons.teamstoseasons_id = teamstoseasons.id AND teamstoseasons.teams_id = teams.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND driverstoseasons.id = :driverid AND races.race_date < :racedate ORDER BY races.race_date DESC LIMIT 5");
+      $sql->execute(array(':driverid' => $driverid[$arraynum], ':racedate' => $racedate[$arraynum]));
+      $row = $sql->fetchAll(PDO::FETCH_OBJ);
+      if ($sql->rowCount() > 0) {
+				foreach ($row as $result) {
 					// For each recent race found
-					$racepoints = $pricerow['race_points'];
+					$racepoints = $result->race_points;
 					$drivervalue = $drivervalue + $racepoints;
 					echo "<td>".$racepoints."</td>";
 					// Increment x
@@ -79,10 +81,10 @@ if (isset($_POST['drivervalues'])) {
 		}
 		echo "<td><strong><em>".$cost."</em></strong></td>";
 		// Try to update the value in the database.
-		$updatequery = "UPDATE raceentries SET fantasy_value = '$cost' WHERE id = '$entryid[$arraynum]'";
+		$sql = $dbh->prepare("UPDATE raceentries SET fantasy_value = '$cost' WHERE id = '$entryid[$arraynum]'");
+    $sql->execute();
 		//echo "<p>".$updatequery."</p>";
-		$updateresult = mysql_query ($updatequery);
-		if (mysql_affected_rows() > 0) {
+		if ($sql->rowCount() > 0) {
 			echo "<td>Yes</td>";
 		}
 		else {
@@ -101,8 +103,8 @@ if (isset($_POST['drivervalues'])) {
 	echo "</tbody>";
 	echo "</table>";
 	if ($arraynum > 0) {
-		$query = "UPDATE races SET status = '3' WHERE id = '$raceid'";
-		$result = mysql_query($query);
+		$sql = $dbh->prepare("UPDATE races SET status = '3' WHERE id = '$raceid'");
+    $sql->execute();
 	}
 }
 
@@ -110,16 +112,13 @@ if (isset($_POST['drivervalues'])) {
 echo "<form action =\"".$_SERVER['PHP_SELF']."?page=drivervalues\" method=\"post\">\n\n";
 
 // Select all Grands Prix
-$query = "SELECT races.id, grandsprix.grand_prix_name, tracks.track_name, races.race_date FROM grandsprix, races, tracks, trackstograndsprix WHERE races.trackstograndsprix_id = trackstograndsprix.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND races.status = '2' ORDER BY races.race_date DESC";
-$result = mysql_query ($query);
-if (mysql_num_rows ($result) > 0) {
+$sql = $dbh->prepare("SELECT races.id, grandsprix.grand_prix_name, tracks.track_name, races.race_date FROM grandsprix, races, tracks, trackstograndsprix WHERE races.trackstograndsprix_id = trackstograndsprix.id AND trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id AND races.status = '2' ORDER BY races.race_date DESC");
+$sql->execute();
+$row = $sql->fetchAll(PDO::FETCH_OBJ);
+if ($sql->rowCount() > 0) {
 	echo "<select name = \"race_id\">\n";
-	while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
-	$raceid = $row['id'];
-	$grandprix = $row['grand_prix_name'];
-	$track = $row['track_name'];
-	$date = $row['race_date'];
-	echo "<option value=\"".$raceid."\">".$grandprix." (".$date.")</option>\n";
+	foreach ($row as $result) {
+	echo "<option value=\"".$result->id."\">".$result->grand_prix_name." (".$result->race_date.")</option>\n";
 	}
 	echo "</select>\n\n";
 }
