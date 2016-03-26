@@ -45,7 +45,7 @@ if (preg_match("/results\/[0-9]{4}\/[a-z0-9-]/", $page)) {
 		include $page;
 	}
 	else {
-		header("HTTP/1.0 404 Not Found");
+		header("HTTP/1.1 404 Not Found");
 		include '404.php';
 	}
 	
@@ -56,7 +56,7 @@ else if (preg_match("/results\/[0-9]{4}\//", $page)) {
 		listDirectory();
 	}
 	else {
-		header("HTTP/1.0 404 Not Found");
+		header("HTTP/1.1 404 Not Found");
 		include '404.php';
 	}
 }
@@ -66,7 +66,7 @@ else if ($page == "results/") {
 }
 
 else {
-	header("HTTP/1.0 404 Not Found");
+	header("HTTP/1.1 404 Not Found");
 	include '404.php';
 }
 

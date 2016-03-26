@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('IN_PAGE')) {
-    header("HTTP/1.0 404 Not Found");
+    header("HTTP/1.1 404 Not Found");
 	include '../404.php';
 	die();
 }
