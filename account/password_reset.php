@@ -35,16 +35,30 @@ if (isset($_POST['submit'])) {
 			$sql = $dbh->prepare("UPDATE fantasyusers SET resetcode = :code WHERE email_address = :email");
 			$sql->execute(array(':code'=>$code, ':email'=>$email));
 			if ($sql->rowCount() == 1) {
-				$to = $email;
-				$subject = "FantasyF1 website password reset request";
-				$message = "<html><body>";
-				$message .= "A password reset was requested for this account. You can <a href=http://fantasyf1.slevin.org.uk/account/password_reset.php?email=".$email."&code=".$code.">reset your password on the FantasyF1 website</a>. This link will only work once; please change your password when you log in.";
-				$message .="</body></html>";
-				$headers = "From: fantasyf1admin@slevin.org.uk\r\n";
-				$headers .= "MIME-Version: 1.0\r\n";
-				$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-				mail($to, $subject, $message, $headers);
-				echo "<p>A password reset link has been emailed to ".$to.". Please check your spam folder as the email may be marked as spam.</p>";
+				require '../includes/class.phpmailer.php';
+				require '../includes/class.smtp.php';
+				$mail = new PHPMailer;
+				$mail->isSMTP();
+				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = 'ssl';
+				$mail->Port = 465;
+				$mail->isHTML(true);
+
+				$mail->Host = $ff1mailhost;
+				$mail->Username = $ff1mailusername;
+				$mail->Password = $ff1mailpassword;
+				$mail->setFrom($ff1fromaddress, $ff1fromname);
+				
+				$mail->addAddress($email);
+				$mail->Subject = 'FantasyF1 Password Reset';
+				$mail->Body = "A password reset was requested for this account. You can <a href=http://fantasyf1.slevin.org.uk/account/password_reset.php?email=".$email."&code=".$code.">reset your password on the FantasyF1 website</a>. This link will only work once; please change your password when you log in.";
+				
+				if (!$mail->send()) {
+					echo "Mailer Error: " . $mail->ErrorInfo;
+				} else {
+					echo "<h1>Password Reset</h1>";
+					echo "<p>A password reset link has been emailed to ".$email.". Please check your spam folder as the email may be marked as spam.</p>";
+				}
 			}
 			else {
 				$error .="<p>There was a problem resetting your password.</p>";
