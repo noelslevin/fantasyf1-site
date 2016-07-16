@@ -27,14 +27,16 @@ if (isset($_POST['submit'])) {
 	if ($error == NULL) {
 		$sql = $dbh->prepare("SELECT username, email_address FROM fantasyusers WHERE email_address = :email");
 		$sql->execute(array(':email' => $email));
-		$row = $sql->fetchAll(PDO::FETCH_ASSOC);
+		$row = $sql->fetch(PDO::FETCH_ASSOC);
 		if ($sql->rowCount() == 1) {
-			// Email password reset details.
-			// Need to create one-time reset link
+			// Fetch username for use in email
+			$username = $row['username'];
+			// Create one-time reset link
 			$code = bin2hex(openssl_random_pseudo_bytes(64));
 			$sql = $dbh->prepare("UPDATE fantasyusers SET resetcode = :code WHERE email_address = :email");
 			$sql->execute(array(':code'=>$code, ':email'=>$email));
 			if ($sql->rowCount() == 1) {
+				// Set up and send email
 				require '../includes/class.phpmailer.php';
 				require '../includes/class.smtp.php';
 				$mail = new PHPMailer;
@@ -44,6 +46,7 @@ if (isset($_POST['submit'])) {
 				$mail->Port = 465;
 				$mail->isHTML(true);
 
+				// These variables are set in the external connection file
 				$mail->Host = $ff1mailhost;
 				$mail->Username = $ff1mailusername;
 				$mail->Password = $ff1mailpassword;
@@ -51,7 +54,12 @@ if (isset($_POST['submit'])) {
 				
 				$mail->addAddress($email);
 				$mail->Subject = 'FantasyF1 Password Reset';
-				$mail->Body = "A password reset was requested for this account. You can <a href=http://fantasyf1.slevin.org.uk/account/password_reset.php?email=".$email."&code=".$code.">reset your password on the FantasyF1 website</a>. This link will only work once; please change your password when you log in.";
+				
+				$body = file_get_contents('includes/password-reset-email.html');
+				$link = "https://fantasyf1.slevin.org.uk/account/password_reset.php?email=$email&code=$code";
+				$body = str_replace("[[Username]]", $username, $body);
+				$body = str_replace("[[LINK]]", $link, $body);
+				$mail->Body = $body;
 				
 				if (!$mail->send()) {
 					echo "Mailer Error: " . $mail->ErrorInfo;
