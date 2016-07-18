@@ -25,12 +25,13 @@ if (isset($_POST['submit'])) {
 		$error .= "<p>The email address you submitted is not a valid email address.</p>";
 	}
 	if ($error == NULL) {
-		$sql = $dbh->prepare("SELECT username, email_address FROM fantasyusers WHERE email_address = :email");
+		$sql = $dbh->prepare("SELECT username, ID, email_address FROM fantasyusers WHERE email_address = :email");
 		$sql->execute(array(':email' => $email));
 		$row = $sql->fetch(PDO::FETCH_ASSOC);
 		if ($sql->rowCount() == 1) {
 			// Fetch username for use in email
 			$username = $row['username'];
+      $userid = $row['ID'];
 			// Create one-time reset link
 			$code = bin2hex(openssl_random_pseudo_bytes(64));
 			$sql = $dbh->prepare("UPDATE fantasyusers SET resetcode = :code WHERE email_address = :email");
@@ -66,6 +67,9 @@ if (isset($_POST['submit'])) {
 				} else {
 					echo "<h1>Password Reset</h1>";
 					echo "<p>A password reset link has been emailed to ".$email.". Please check your spam folder as the email may be marked as spam.</p>";
+          $now = time();
+          $sql = $dbh->prepare("INSERT INTO messagelog (fantasyusers_id, messages_id, timestamp) VALUES (:fantasyuser, :messageid, :timestamp)");
+          $sql->execute(array(':fantasyuser' => $userid, ':messageid' => "1", ':timestamp' => $now));
 				}
 			}
 			else {
