@@ -21,6 +21,9 @@ if (isset($_POST['submit'])) {
 			$_SESSION['user_id'] = $row['id'];
 			$_SESSION['username'] = $row['username'];
 			$_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+      $now = time();
+      $sql = $dbh->prepare("INSERT INTO messagelog (fantasyusers_id, messages_id, timestamp) VALUES (:fantasyuser, :messageid, :timestamp)");
+          $sql->execute(array(':fantasyuser' => $_SESSION['user_id'], ':messageid' => "5", ':timestamp' => $now));
 			header ("Location:  http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/");
 			exit();
 		}
