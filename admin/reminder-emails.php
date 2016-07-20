@@ -22,6 +22,7 @@ if ($sql->rowCount() > 0) {
   $mail->setFrom($ff1fromaddress, $ff1fromname);
   $mail->Subject = 'REMINDER: Make your FantasyF1 picks!';
   foreach ($row as $result) {
+    $mail->clearAllRecipients();
     $mail->addAddress($result->email_address); 
     $body = file_get_contents('picks-reminder-email.html');
     $body = str_replace("[[Username]]", $result->username, $body);
