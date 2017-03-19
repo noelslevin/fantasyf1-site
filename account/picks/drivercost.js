@@ -1,9 +1,9 @@
-// The counter for i must agree with the number of race entries
+// The counter for i go up to 1 more than the number of race entries
 function UpdateCost() {
   var submitObj = document.getElementById('submitpicks');
   var sum = 0;
   var gn, elem;
-  for (i=1; i<23; i++) {
+  for (i=1; i<21; i++) {
     gn = 'pick'+i;
     elem = document.getElementById(gn);
     hn = 'driverpick'+i;
