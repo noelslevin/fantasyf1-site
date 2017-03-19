@@ -18,7 +18,7 @@ if (isset($_SESSION['user_id'])) {
 		$terms = 0;
 		$terms = $_POST['terms'];
 		if ($terms == 1) {
-			$sql = $dbh->prepare("UPDATE fantasyusers SET registered = 1 WHERE id = :userid");
+			$sql = $dbh->prepare("UPDATE fantasyusers SET status = 'A' WHERE id = :userid");
 			$sql->execute(array(':userid' => $_SESSION['user_id']));
 			if ($sql->rowCount() == 1) {
 				echo "<p>You have agreed to the site terms.</p>";
