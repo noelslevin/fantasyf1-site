@@ -85,7 +85,7 @@ if(isset($_GET['page'])) { $page = $_GET['page']; } else { $page= NULL; }
 	</div>
     
 	<script src="/assets/js/main.min.js"></script>
-    <script>
+    <script nonce="dd536614247f207c">
       $(document).foundation();
     </script>
   </body>
