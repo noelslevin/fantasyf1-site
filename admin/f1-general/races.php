@@ -35,7 +35,7 @@ if (isset($_POST['createrace'])) {
 echo "<form action =\"".$_SERVER['PHP_SELF']."?page=races\" method=\"post\">\n\n";
 
 // Select all race/track combinations from the database
-$sql = $dbh->prepare("SELECT trackstograndsprix.id, tracks.track_name, grandsprix.grand_prix_name FROM trackstograndsprix, tracks, grandsprix WHERE trackstograndsprix.tracks_id = tracks.id AND trackstograndsprix.grandsprix_id = grandsprix.id ORDER BY grand_prix_name, track_name ASC");
+$sql = $dbh->prepare("SELECT trackstograndsprix.id, tracks.track_name, grandsprix.grand_prix_name FROM trackstograndsprix JOIN tracks ON trackstograndsprix.tracks_id = tracks.id JOIN grandsprix ON grandsprix.ID = trackstograndsprix.grandsprix_id WHERE	trackstograndsprix.status = 'A' ORDER BY grand_prix_name, track_name ASC");
 $sql->execute();
 $row = $sql->fetchAll(PDO::FETCH_OBJ);
 // If data is found
