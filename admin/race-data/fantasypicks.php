@@ -3,7 +3,7 @@
 $sql = $dbh->prepare("SELECT id AS user_id, username, 
 (SELECT SUM(fantasy_value) FROM `view_ff1allfantasypicks` WHERE status = 3 AND fantasyusers_id = user_id) AS spent,
 CASE WHEN (SELECT COUNT(*) FROM `view_ff1allfantasypicks` WHERE fantasyusers_id = user_id AND (status = '3' OR status = '4')) > 0 THEN 'Picked' ELSE CONCAT('<a href=mailto:',(SELECT email_address FROM fantasyusers WHERE fantasyusers.id = user_id),'>Email reminder</a>') END AS picks
-FROM fantasyusers WHERE status = 'A' ORDER BY picks ASC, spent DESC, username ASC");
+FROM fantasyusers WHERE registered = 1 ORDER BY picks ASC, spent DESC, username ASC");
 $sql->execute();
 $row = $sql->fetchAll(PDO::FETCH_ASSOC);
 if ($sql->rowCount() > 0) {

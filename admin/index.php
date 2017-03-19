@@ -45,6 +45,3 @@ a {
 <a href=race-data/index.php?page=ff1results>FF1 Results</a>
 <a href=ff1-race-results.php>FF1 Results Tables</a>
 </div>
-
-<?php include '../../private/connection.php'; ?>
-<?php //echo constant("BASE_PATH"); ?>
