@@ -36,9 +36,6 @@ if (isset($_SESSION['user_id'])) {
 	echo "<div class=row>\n";
 	echo "<div class=\"small-12 columns\">\n";
 	echo "<h1>User profile</h1>";
-  echo "<div data-alert class=\"alert-box warning radius\">\n";
-  echo "<p style=\"margin-bottom: 0;\">Please make sure you have agreed to the site terms and expressed your preference for team and teammate on this page. This is very important to ensure you are registered to play FantasyF1 this season.</p>\n";
-  echo "</div>\n";
   
     if (isset($_POST['emailupdate'])) {
       $preferences = htmlspecialchars(strip_tags($_POST['preferences']));      
