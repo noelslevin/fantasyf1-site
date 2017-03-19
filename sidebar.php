@@ -12,7 +12,7 @@
 			</thead>
 			<tbody>
 				<?php
-				$sql = $dbh->prepare("SELECT forename, surname, teamname, SUM(race_points) AS points FROM `view_ff1allraceresults` WHERE Year = 2016 GROUP BY driverstoseasons_id ORDER BY points DESC LIMIT 5");
+				$sql = $dbh->prepare("SELECT forename, surname, teamname, SUM(race_points) AS points FROM `view_ff1allraceresults` WHERE Year = 2017 GROUP BY driverstoseasons_id ORDER BY points DESC LIMIT 5");
 				$sql->execute();
 				$row = $sql->fetchAll(PDO::FETCH_ASSOC);
 				$totalrows = count($row);
@@ -36,7 +36,7 @@
 			</thead>
 			<tbody>
 				<?php
-				$sql = $dbh->prepare("SELECT teamname, engine, SUM(race_points) AS points FROM `view_ff1allraceresults` WHERE Year = 2016 GROUP BY teamstoseasons_id ORDER BY points DESC Limit 5");
+				$sql = $dbh->prepare("SELECT teamname, engine, SUM(race_points) AS points FROM `view_ff1allraceresults` WHERE Year = 2017 GROUP BY teamstoseasons_id ORDER BY points DESC Limit 5");
 				$sql->execute();
 				$row = $sql->fetchAll(PDO::FETCH_ASSOC);
 				$totalrows = count($row);
@@ -67,7 +67,7 @@
 			</thead>
 			<tbody>
 				<?php
-				$sql = $dbh->prepare("SELECT username, team, points FROM `view_ff1individualstandingsbyyear` WHERE season = 2016 ORDER BY points DESC LIMIT 5");
+				$sql = $dbh->prepare("SELECT username, team, points FROM `view_ff1individualstandingsbyyear` WHERE season = 2017 ORDER BY points DESC LIMIT 5");
 				$sql->execute();
 				$row = $sql->fetchAll(PDO::FETCH_ASSOC);
 				$totalrows = count($row);
@@ -91,7 +91,7 @@
 			</thead>
 			<tbody>
 				<?php
-				$sql = $dbh->prepare("SELECT team, points FROM `view_ff1teamstandingsbyyear` WHERE season = 2016 ORDER BY points DESC LIMIt 5");
+				$sql = $dbh->prepare("SELECT team, points FROM `view_ff1teamstandingsbyyear` WHERE season = 2017 ORDER BY points DESC LIMIt 5");
 				$sql->execute();
 				$row = $sql->fetchAll(PDO::FETCH_ASSOC);
 				$totalrows = count($row);
